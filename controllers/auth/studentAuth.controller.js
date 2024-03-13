@@ -1,7 +1,8 @@
-const authModel = require("../../models/auth/auth.model")
+
 const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
+const authModel = require('../../models/auth/studentAuth.model');
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
@@ -18,7 +19,7 @@ const getAllAccount = async (req, res) => {
 
 //  get login user information for login persons
 const getLoginAccount = async (req, res) => {
-    const { userid, username, email } = req.user;
+    const { userid, email } = req.user;
     try {
         const allStudent = await authModel.find({ _id: userid, email })
         .populate("profile");
@@ -76,16 +77,24 @@ const login = async (req, res) => {
 
         if (isEmail) {
             const isPassword = bcrypt.compareSync(password, isEmail.password);
-
-            res.status(200).json({
-                message: "Login Successful",
-                token: jwtToken({
-                    userid: isEmail._id,
-                    username: isEmail.username,
-                    email: isEmail.email
-                }, secretKey),
-                isLogin: true
-            })
+             
+            if (isPassword) {
+                res.status(200).json({
+                    message: "Login Successful",
+                    token: jwtToken({
+                        userid: isEmail._id,
+                        username: isEmail.username,
+                        email: isEmail.email
+                    }, secretKey),
+                    isLogin: true
+                })
+            }else{
+                return res.status(404).json({
+                    message: "Invalid Credential",
+                    isLogin: false
+                })
+            }
+           
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",

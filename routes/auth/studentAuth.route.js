@@ -1,4 +1,4 @@
-const { getAllAccount, register, login, getLoginAccount, edit, deleteOne } = require("../../controllers/auth/auth.controller")
+const { getAllAccount, register, login, getLoginAccount, edit, deleteOne } = require("../../controllers/auth/studentAuth.controller")
 const checkLogin = require("../../midlewere/checkLogin")
 
 const router = require("express").Router()

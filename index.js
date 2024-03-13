@@ -3,8 +3,9 @@ const dotenv = require("dotenv")
 const cors = require('cors');
 const connetcDB = require("./config/database");
 const { port } = require("./secret/secret");
-const authrouter = require("./routes/auth/auth.route");
+const authrouter = require("./routes/auth/studentAuth.route");
 const profileRouter = require("./routes/profile/profile.route");
+const teacherRouter = require("./routes/auth/teacherAuth.route");
 
 const app = express()
 app.use(express.json())
@@ -14,9 +15,12 @@ dotenv.config();
 
 const PORT = port || 9000
 
-app.use("/api", authrouter)
+//  students
+app.use("/api/student", authrouter)
 app.use("/api/profile", profileRouter)
 
+//  teachers
+app.use("/api/teachers", teacherRouter)
 
 //  test route
 app.get("/test", async (req, res) => {

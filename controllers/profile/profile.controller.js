@@ -1,5 +1,6 @@
-const authModel = require("../../models/auth/auth.model");
-const profileModel = require("../../models/profile/profile.model")
+
+const authModel = require("../../models/auth/studentAuth.model");
+const profileModel = require("../../models/profile/studentProfile.model")
 
 const getAllProfile = async (req, res) => {
     try {

@@ -32,6 +32,6 @@ const studentAuthSchema = mongoose.Schema({
 }, { timestamps: true });
 
 
-const authModel = mongoose.model("Auth", studentAuthSchema);
+const authModel = mongoose.model("studentAuth", studentAuthSchema);
 
 module.exports = authModel

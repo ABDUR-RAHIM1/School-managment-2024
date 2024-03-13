@@ -1,21 +1,35 @@
 
 /*
 1 / authentication
-    get all login account - http://localhost:9000/api/auth/all
-    get all login account - http://localhost:9000/api/auth/user
-    register account - http://localhost:9000/api/auth/register
-    login account - http://localhost:9000/api/auth/login
-    edit account - http://localhost:9000/api/auth/edit/:id
-    delete account - http://localhost:9000/api/auth/delete/:id
+    get all login account - http://localhost:9000/api/student/auth/all
+    get all login account - http://localhost:9000/api/student/auth/user
+    register account - http://localhost:9000/api/auth/student/register
+    login account - http://localhost:9000/api/auth/student/login
+    edit account - http://localhost:9000/api/auth/student/edit/:id
+    delete account - http://localhost:9000/api/auth/student/delete/:id
 */
 
 /* 
- 2 / profiles  - student- teachers
+ 2 / profiles  - student 
  
-  get all profiles - http://localhost:9000/api/profile/all
-  get users profiles - http://localhost:9000/api/profile/user
- create profiles - http://localhost:9000/api/profile/create
- edit profiles - http://localhost:9000/api/profile/edit/:id
- delete profiles - http://localhost:9000/api/profile/delete/:id
+    get all profiles - http://localhost:9000/api/profile/all
+    get users profiles - http://localhost:9000/api/profile/user
+    create profiles - http://localhost:9000/api/profile/create
+    edit profiles - http://localhost:9000/api/profile/edit/:id
+    delete profiles - http://localhost:9000/api/profile/delete/:id
+
+*/
+
+
+/*
+ 
+   3 tecahers accounts
+   
+  get all teachers  - http://localhost:9000/api/teachers/auth/all
+    get login teachers  - http://localhost:9000/api/teachers/auth/user
+    register teachers  - http://localhost:9000/api/teachers/auth/register
+    login teachers  - http://localhost:9000/api/teachers/auth/login
+    edit account  - http://localhost:9000/api/teachers/auth/edit/:id
+    delete account  - http://localhost:9000/api/teachers/auth/delete/:id
 
 */
