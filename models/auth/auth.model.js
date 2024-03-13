@@ -22,6 +22,12 @@ const studentAuthSchema = mongoose.Schema({
         type: String,
         default: "student"
     },
+    profile: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Profile"
+        }
+    ]
 
 }, { timestamps: true });
 

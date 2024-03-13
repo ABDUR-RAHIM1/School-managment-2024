@@ -1,13 +1,12 @@
 const authModel = require("../../models/auth/auth.model")
 const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
     try {
-        const allStudent = await authModel.find();
+        const allStudent = await authModel.find()
         res.status(200).json(allStudent)
     } catch (error) {
         res.status(500).json({
@@ -20,9 +19,9 @@ const getAllAccount = async (req, res) => {
 //  get login user information for login persons
 const getLoginAccount = async (req, res) => {
     const { userid, username, email } = req.user;
-    console.log(userid, username, email)
     try {
-        const allStudent = await authModel.find({ _id: userid, email });
+        const allStudent = await authModel.find({ _id: userid, email })
+        .populate("profile");
         res.status(200).json(allStudent)
     } catch (error) {
         res.status(500).json({

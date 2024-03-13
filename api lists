@@ -1,7 +1,21 @@
 
-get all login account - http://localhost:9000/api/auth/all
-get all login account - http://localhost:9000/api/auth/user
-register account - http://localhost:9000/api/auth/register
-login account - http://localhost:9000/api/auth/login
-edit account - http://localhost:9000/api/auth/edit/:id
-delete account - http://localhost:9000/api/auth/delete/:id
+/*
+1 / authentication
+    get all login account - http://localhost:9000/api/auth/all
+    get all login account - http://localhost:9000/api/auth/user
+    register account - http://localhost:9000/api/auth/register
+    login account - http://localhost:9000/api/auth/login
+    edit account - http://localhost:9000/api/auth/edit/:id
+    delete account - http://localhost:9000/api/auth/delete/:id
+*/
+
+/* 
+ 2 / profiles  - student- teachers
+ 
+  get all profiles - http://localhost:9000/api/profile/all
+  get users profiles - http://localhost:9000/api/profile/user
+ create profiles - http://localhost:9000/api/profile/create
+ edit profiles - http://localhost:9000/api/profile/edit/:id
+ delete profiles - http://localhost:9000/api/profile/delete/:id
+
+*/

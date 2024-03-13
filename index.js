@@ -4,6 +4,7 @@ const cors = require('cors');
 const connetcDB = require("./config/database");
 const { port } = require("./secret/secret");
 const authrouter = require("./routes/auth/auth.route");
+const profileRouter = require("./routes/profile/profile.route");
 
 const app = express()
 app.use(express.json())
@@ -14,6 +15,7 @@ dotenv.config();
 const PORT = port || 9000
 
 app.use("/api", authrouter)
+app.use("/api/profile", profileRouter)
 
 
 //  test route
