@@ -1,0 +1,7 @@
+
+get all login account - http://localhost:9000/api/auth/all
+get all login account - http://localhost:9000/api/auth/user
+register account - http://localhost:9000/api/auth/register
+login account - http://localhost:9000/api/auth/login
+edit account - http://localhost:9000/api/auth/edit/:id
+delete account - http://localhost:9000/api/auth/delete/:id
