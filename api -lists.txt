@@ -33,3 +33,12 @@
     delete account  - http://localhost:9000/api/teachers/auth/delete/:id
 
 */
+
+/*
+    get all teacher profiles -  http://localhost:9000/api/teachers/profile/all
+    get login teacher profile -  http://localhost:9000/api/teachers/profile/teacher
+    create profiles -  http://localhost:9000/api/teachers/profile/create
+    edit profiles -  http://localhost:9000/api/teachers/profile/edit
+    delete profiles -  http://localhost:9000/api/teachers/profile/delete
+
+*/

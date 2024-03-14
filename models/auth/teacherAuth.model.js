@@ -22,12 +22,12 @@ const teacherAuthSchema = mongoose.Schema({
         type: String,
         default: "teacher"
     },
-    // profile: [
-    //     {
-    //         type: mongoose.Types.ObjectId,
-    //         ref: "Profile"
-    //     }
-    // ]
+    profile: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "TeacherProfile"
+        }
+    ]
 
 }, { timestamps: true });
 

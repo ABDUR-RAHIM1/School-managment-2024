@@ -6,6 +6,7 @@ const { port } = require("./secret/secret");
 const authrouter = require("./routes/auth/studentAuth.route");
 const profileRouter = require("./routes/profile/profile.route");
 const teacherRouter = require("./routes/auth/teacherAuth.route");
+const techerProfileRouter = require("./routes/profile/profile.teacher.route");
 
 const app = express()
 app.use(express.json())
@@ -21,6 +22,9 @@ app.use("/api/profile", profileRouter)
 
 //  teachers
 app.use("/api/teachers", teacherRouter)
+app.use("/api/teachers/profile" , techerProfileRouter)
+
+
 
 //  test route
 app.get("/test", async (req, res) => {
@@ -53,6 +57,7 @@ app.use(async (err, req, res, next) => {
 });
 
 
+//  connecting
 app.listen(PORT, async () => {
     console.log('Server is running');
     await connetcDB()

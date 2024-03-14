@@ -17,8 +17,9 @@ const getAllProfile = async (req, res) => {
 
 //  based on login users
 const getUserProfile = async (req, res) => {
+    const { userid, email } = req.user; 
     try {
-        const profiles = await profileModel.find();
+        const profiles = await profileModel.find({ userId: userid, email });
         res.status(200).json(profiles)
     } catch (error) {
         res.status(500).json({
@@ -30,8 +31,7 @@ const getUserProfile = async (req, res) => {
 
 
 const createProfile = async (req, res) => {
-    const { name, dob, pob, bloodGroup, religion, address, city, postalCode, email, phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo } = req.body;
-
+    const { name, dob, pob, bloodGroup, religion, address, city, postalCode, phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo } = req.body;
 
     try {
         const isProfileExist = await profileModel.findOne({ userId: req.user.userid })
@@ -43,7 +43,9 @@ const createProfile = async (req, res) => {
         }
         const newProfile = await profileModel({
             userId: req.user.userid,
-            name, dob, pob, bloodGroup, religion, address, city, postalCode, email, phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo
+            name, dob, pob, bloodGroup, religion, address, city, postalCode,
+            email: req.user.email,
+            phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo
         });
 
 

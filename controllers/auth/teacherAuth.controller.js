@@ -20,6 +20,7 @@ const getLoginTeacher = async (req, res)=> {
     const { userid, email } = req.user;
     try {
         const allStudent = await teacherModel.find({ _id: userid, email })
+        .populate("profile")
         // .populate("profile");
         res.status(200).json(allStudent)
     } catch (error) {
