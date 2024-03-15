@@ -42,7 +42,7 @@ const createProfile = async (req, res) => {
             })
         }
         const newProfile = await profileModel({
-            userId: req.user.userid,
+            studentId: req.user.userid,
             name, dob, pob, bloodGroup, religion, address, city, postalCode,
             email: req.user.email,
             phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo

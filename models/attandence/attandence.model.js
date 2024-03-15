@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 
 // Schema for attendance
 const attendanceSchema = new mongoose.Schema({
-    student: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Profile',
+    studentId: {
+        type: String,
         required: true
     },
     classCode: {
@@ -20,6 +19,10 @@ const attendanceSchema = new mongoose.Schema({
         type: String,
         enum: ['Present', 'Absent', "late"],
         required: true
+    },
+    createdAt : {
+        type : Date,
+        default : Date.now
     }
 });
 

@@ -11,3 +11,4 @@ task ;
 
 
  4 / get login students attendance fetch on _id
+ 5 / add attendence with studenst profile's studentId and find this while the student is login

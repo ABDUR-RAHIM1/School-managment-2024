@@ -1,6 +1,6 @@
 
 /*
-1 / authentication
+1 / student authentication 
     get all login account - http://localhost:9000/api/student/auth/all
     get all login account - http://localhost:9000/api/student/auth/user
     register account - http://localhost:9000/api/auth/student/register
@@ -10,7 +10,7 @@
 */
 
 /* 
- 2 / profiles  - student 
+ 2 / - student - profiles  
  
     get all profiles - http://localhost:9000/api/profile/all
     get users profiles - http://localhost:9000/api/profile/user
@@ -22,9 +22,8 @@
 
 
 /*
- 
-   3 tecahers accounts
-   
+  3 tecahers authentication 
+
   get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
     register teachers  - http://localhost:9000/api/teachers/auth/register
@@ -47,6 +46,7 @@
    attendence 
 
     get all - http://localhost:9000/api/attendence/all
+    get  login st - http://localhost:9000/api/attendence/login-student
     add all - http://localhost:9000/api/attendence/create
     edit   - http://localhost:9000/api/attendence/edit/:id
     delete   - http://localhost:9000/api/attendence/delete/:id
