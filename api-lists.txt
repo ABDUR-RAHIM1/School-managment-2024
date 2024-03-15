@@ -73,3 +73,12 @@ teacher attendence
  edit - http://localhost:9000/api/attendence/teacher/edit/:id
  delete - http://localhost:9000/api/attendence/teacher/delete/:id
 */
+
+todos
+/*
+  get all todo -> http://localhost:9000/api/todos/all
+  get logins todo -> http://localhost:9000/api/todos/users
+  add todo -> http://localhost:9000/api/todos/add
+  edit todo -> http://localhost:9000/api/todos/edit/:id
+  delete todo -> http://localhost:9000/api/todos/delete/:id
+*/

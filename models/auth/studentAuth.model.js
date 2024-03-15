@@ -27,6 +27,12 @@ const studentAuthSchema = mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: "Profile"
         }
+    ],
+    todos: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Todos"
+        }
     ]
 }, { timestamps: true });
 
