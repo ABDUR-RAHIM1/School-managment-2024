@@ -11,6 +11,7 @@ const adminRouter = require("./routes/auth/adminAuth.route");
 const attendenceRouter = require("./routes/attandence/attandence");
 const taecherAttendanceouter = require("./routes/attandence/teacherAttendance.route");
 const todosRouter = require("./routes/todos/todos.route");
+const complainRouter = require("./routes/complain/complain.route");
 
 const app = express()
 app.use(express.json())
@@ -26,18 +27,23 @@ app.use("/api/profile", profileRouter)
 
 //  teachers
 app.use("/api/teachers", teacherRouter)
-app.use("/api/teachers/profile" , techerProfileRouter)
+app.use("/api/teachers/profile", techerProfileRouter)
 
 //  admin 
-app.use("/api/admin" , adminRouter)
+app.use("/api/admin", adminRouter)
 
 
 //  attendence 
-app.use("/api/attendence" , attendenceRouter)
-app.use("/api/attendence/teacher" , taecherAttendanceouter)
+app.use("/api/attendence", attendenceRouter)
+app.use("/api/attendence/teacher", taecherAttendanceouter)
 
 //  todos 
 app.use("/api/todos", todosRouter)
+
+//  complain
+app.use("/api/complain", complainRouter)
+
+
 
 //  test route
 app.get("/test", async (req, res) => {

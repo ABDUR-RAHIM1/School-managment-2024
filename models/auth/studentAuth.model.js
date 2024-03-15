@@ -33,7 +33,13 @@ const studentAuthSchema = mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: "Todos"
         }
-    ]
+    ],
+    complains: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Complain"
+        }
+    ],
 }, { timestamps: true });
 
 

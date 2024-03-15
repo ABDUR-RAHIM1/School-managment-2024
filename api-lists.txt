@@ -82,3 +82,16 @@ todos
   edit todo -> http://localhost:9000/api/todos/edit/:id
   delete todo -> http://localhost:9000/api/todos/delete/:id
 */
+
+complain
+/*
+  get all - http://localhost:9000/api/complain/all 
+  add - http://localhost:9000/api/complain/add   - token
+  edit - http://localhost:9000/api/complain/edit/:id
+  delete - http://localhost:9000/api/complain/delete/:id  - token
+*/
+
+notice - admin can access
+/*
+ 
+*/
