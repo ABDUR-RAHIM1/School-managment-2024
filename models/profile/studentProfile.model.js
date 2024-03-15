@@ -2,10 +2,10 @@
 const mongoose = require("mongoose");
 
 const profileSchema = mongoose.Schema({
-     userId : {
-      type : String,
-      required :true
-     },
+    userId: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -78,9 +78,10 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true
     },
+   
 });
 
 
-const profileModel = mongoose.model("Profile" , profileSchema);
+const profileModel = mongoose.model("Profile", profileSchema);
 
 module.exports = profileModel;

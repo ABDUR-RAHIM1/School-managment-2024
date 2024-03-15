@@ -42,3 +42,13 @@
     delete profiles -  http://localhost:9000/api/teachers/profile/delete
 
 */
+
+/*
+   attendence 
+
+    get all - http://localhost:9000/api/attendence/all
+    add all - http://localhost:9000/api/attendence/create
+    edit   - http://localhost:9000/api/attendence/edit/:id
+    delete   - http://localhost:9000/api/attendence/delete/:id
+    
+*/

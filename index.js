@@ -7,6 +7,8 @@ const authrouter = require("./routes/auth/studentAuth.route");
 const profileRouter = require("./routes/profile/profile.route");
 const teacherRouter = require("./routes/auth/teacherAuth.route");
 const techerProfileRouter = require("./routes/profile/profile.teacher.route");
+const adminRouter = require("./routes/auth/adminAuth.route");
+const attendenceRouter = require("./routes/attandence/attandence");
 
 const app = express()
 app.use(express.json())
@@ -24,6 +26,12 @@ app.use("/api/profile", profileRouter)
 app.use("/api/teachers", teacherRouter)
 app.use("/api/teachers/profile" , techerProfileRouter)
 
+//  admin 
+app.use("/api/admin" , adminRouter)
+
+
+//  attendence 
+app.use("/api/attendence" , attendenceRouter)
 
 
 //  test route

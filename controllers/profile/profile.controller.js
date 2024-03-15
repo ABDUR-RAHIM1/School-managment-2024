@@ -4,7 +4,7 @@ const profileModel = require("../../models/profile/studentProfile.model")
 
 const getAllProfile = async (req, res) => {
     try {
-        const profiles = await profileModel.find();
+        const profiles = await profileModel.find()
         res.status(200).json(profiles)
     } catch (error) {
         res.status(500).json({
@@ -17,7 +17,7 @@ const getAllProfile = async (req, res) => {
 
 //  based on login users
 const getUserProfile = async (req, res) => {
-    const { userid, email } = req.user; 
+    const { userid, email } = req.user;
     try {
         const profiles = await profileModel.find({ userId: userid, email });
         res.status(200).json(profiles)
@@ -32,7 +32,7 @@ const getUserProfile = async (req, res) => {
 
 const createProfile = async (req, res) => {
     const { name, dob, pob, bloodGroup, religion, address, city, postalCode, phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo } = req.body;
-
+    
     try {
         const isProfileExist = await profileModel.findOne({ userId: req.user.userid })
         if (isProfileExist) {
@@ -51,6 +51,8 @@ const createProfile = async (req, res) => {
 
 
         const profile = await newProfile.save();
+      await authModel.find({_id:req.user.userid});
+     
 
         await authModel.updateOne({
             _id: req.user.userid
@@ -58,12 +60,12 @@ const createProfile = async (req, res) => {
             $push: {
                 profile: profile._id
             }
-        })
+        }, { new: true })
 
         res.status(201).json({
             message: "Profile Create Successfull",
             isProfile: true,
-            profile
+            profile,
         })
 
 

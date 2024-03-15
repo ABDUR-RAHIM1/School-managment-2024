@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const studentAuthSchema = mongoose.Schema({
+const adminAuthSchema = mongoose.Schema({
     username: {
         type: String,
         required: [true, "Username is required"],
@@ -20,17 +20,12 @@ const studentAuthSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        default: "student"
+        default: "admin"
     },
-    profile: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "Profile"
-        }
-    ]
+
 }, { timestamps: true });
 
 
-const authModel = mongoose.model("studentAuth", studentAuthSchema);
+const adminAuthModel = mongoose.model("admintAuth", adminAuthSchema);
 
-module.exports = authModel
+module.exports = adminAuthModel
