@@ -2,12 +2,12 @@
 const mongoose = require('mongoose');
 
 // Schema for attendance
-const attendanceSchema = new mongoose.Schema({
-    studentId: {
+const teacherAttendanceSchema = new mongoose.Schema({
+    teacherId: { 
         type: String,
         required: true
     },
-    classCode: {
+    email: {
         type: String,
         required: true
     },
@@ -20,12 +20,12 @@ const attendanceSchema = new mongoose.Schema({
         enum: ['Present', 'Absent', "Late"],
         required: true
     },
-    createdAt : {
-        type : Date,
-        default : Date.now
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 
-const Attendance = mongoose.model('Attendance', attendanceSchema);
+const TeahcerAttendance = mongoose.model('TeacherAttendance', teacherAttendanceSchema);
 
-module.exports = Attendance;
+module.exports = TeahcerAttendance;

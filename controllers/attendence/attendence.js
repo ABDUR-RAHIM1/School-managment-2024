@@ -28,14 +28,21 @@ const getLoginStudentsAttendance = async (req, res) => {
 }
 
 const addAttendence = async (req, res) => {
+    const attendanceData = req.body;
 
+    const attendances = attendanceData.map(attendance => ({
+        studentId: attendance.studentId,
+        classCode: attendance.classCode,
+        date: attendance.date,
+        status: attendance.status
+    }));
     try {
         const existingAttendance = await Attendance.find({ studentId: req.body.map(ad => ad.studentId), date: req.body.map(ad => ad.date) });
 
         if (existingAttendance.length > 0) {
             return res.status(400).json({ message: "Attendance records already exist for the student on this date" });
         } else {
-            const attendance = await Attendance.insertMany(req.body);
+            const attendance = await Attendance.insertMany(attendances);
 
             return res.status(201).json({ message: "Attendance records created successfully", attendance });
         }
@@ -73,7 +80,7 @@ const editAttendence = async (req, res) => {
 const deleteAttendence = async (req, res) => {
     const { id } = req.params;
     try {
-        const isDelete = await Attendance.findOneAndDelete({_id:id});
+        const isDelete = await Attendance.findOneAndDelete({ _id: id });
         if (isDelete) {
             res.status(200).json({
                 message: "Delete successful"

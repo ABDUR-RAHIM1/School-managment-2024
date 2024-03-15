@@ -20,6 +20,7 @@ const adminAuthSchema = mongoose.Schema({
     },
     role: {
         type: String,
+        enum: ["admin", "moderator"],
         default: "admin"
     },
 

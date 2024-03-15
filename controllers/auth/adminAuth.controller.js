@@ -94,8 +94,21 @@ const loginAdmin = async (req, res) => {
 }
 
 const editAdmin = async (req, res)=>{
+    const {id} = req.params;
     try {
-         res.send("editAdmin")
+        const isUpdated = await adminAuthModel.findByIdAndUpdate({_id : id}, {
+            $set : req.body
+        }, {new:true});
+
+        if (isUpdated) {
+             res.status(200).json({
+                message : "Updated successful"
+             })
+        }else{
+            res.status(200).json({
+                message : "Record not found"
+             }) 
+        }
     } catch (error) {
        res.status(200).json({
           message :"Internal Server Error",
@@ -105,8 +118,19 @@ const editAdmin = async (req, res)=>{
 }
 
 const deleteAdmin = async (req, res)=>{
+    const {id} = req.params
     try {
-         res.send("deleteAdmin")
+        const isDelete = await adminAuthModel.findByIdAndDelete({_id : id});
+
+        if (isDelete) {
+              res.status(200).json({
+                message :'Delete successful'
+              })
+        }else{
+            res.status(200).json({
+                message :'Record not found'
+              })
+        }
     } catch (error) {
        res.status(200).json({
           message :"Internal Server Error",

@@ -1,4 +1,14 @@
 
+admin 
+/*
+    get all admin - http://localhost:9000/api/admin/auth/all
+     register admin - http://localhost:9000/api/admin/auth/register
+     login admin - http://localhost:9000/api/admin/auth/login
+     edit - http://localhost:9000/api/admin/auth/edit/:id
+     delete - http://localhost:9000/api/admin/auth/delete/:id
+*/
+
+
 /*
 1 / student authentication 
     get all login account - http://localhost:9000/api/student/auth/all
@@ -20,9 +30,9 @@
 
 */
 
-
-/*
   3 tecahers authentication 
+/*
+
 
   get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
@@ -33,6 +43,7 @@
 
 */
 
+teacher profles
 /*
     get all teacher profiles -  http://localhost:9000/api/teachers/profile/all
     get login teacher profile -  http://localhost:9000/api/teachers/profile/teacher
@@ -42,8 +53,9 @@
 
 */
 
+  student attendence 
 /*
-   attendence 
+
 
     get all - http://localhost:9000/api/attendence/all
     get  login st - http://localhost:9000/api/attendence/login-student
@@ -51,4 +63,13 @@
     edit   - http://localhost:9000/api/attendence/edit/:id
     delete   - http://localhost:9000/api/attendence/delete/:id
     
+*/
+
+teacher attendence
+/*
+ get all - http://localhost:9000/api/attendence/teacher/all
+ get login teacher att - http://localhost:9000/api/attendence/teacher/login-teacher
+ add att - http://localhost:9000/api/attendence/teacher/add
+ edit - http://localhost:9000/api/attendence/teacher/edit/:id
+ delete - http://localhost:9000/api/attendence/teacher/delete/:id
 */
