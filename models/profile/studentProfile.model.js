@@ -10,19 +10,28 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    dob: {
+    classCode: {
         type: String,
+        required: true
+    },
+    roll: {
+        type: String,
+        required: true
+    },
+    group: {
+        type: String,
+        enum: ["Science", "Commerce", "Arts"],
+        required: true
+    },
+    session: {
+        type: String,
+        required: true
+    },
+    dob: {
+        type: Date,
         required: true
     },
     pob: {
-        type: String,
-        required: true
-    },
-    bloodGroup: {
-        type: String,
-        required: true
-    },
-    religion: {
         type: String,
         required: true
     },
@@ -50,6 +59,15 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true
     },
+
+    bloodGroup: {
+        type: String,
+        required: true
+    },
+    religion: {
+        type: String,
+        required: true
+    },
     guardianName: {
         type: String,
         required: true
@@ -66,19 +84,11 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    classOfAdmission: {
-        type: String,
-        required: true
-    },
-    reason: {
-        type: String,
-        required: true
-    },
     photo: {
         type: String,
         required: true
     },
-   
+
 });
 
 

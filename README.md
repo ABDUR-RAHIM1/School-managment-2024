@@ -12,3 +12,6 @@ task ;
 
  4 / get login students attendance fetch on _id
  5 / add attendence with studenst profile's studentId and find this while the student is login
+
+ 6 / student login is pending in admin , admin can accept then he create a profile
+ login korar shomoy check korte hobe je account active na inactive, active hole ok na hole alert message show korbe wait korar jnno

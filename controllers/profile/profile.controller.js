@@ -31,10 +31,32 @@ const getUserProfile = async (req, res) => {
 
 
 const createProfile = async (req, res) => {
-    const { name, dob, pob, bloodGroup, religion, address, city, postalCode, phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo } = req.body;
-    
+    const {
+        studentId,
+        name,
+        classCode,
+        roll,
+        group,
+        session,
+        dob,
+        pob,
+        address,
+        city,
+        postalCode,
+        email,
+        phone,
+        emergencyContact,
+        bloodGroup,
+        religion,
+        guardianName,
+        occupation,
+        relationWith,
+        relationContact,
+        photo
+    } = req.body;
+
     try {
-        const isProfileExist = await profileModel.findOne({ userId: req.user.userid })
+        const isProfileExist = await profileModel.findOne({ studentId: req.user.userid })
         if (isProfileExist) {
             return res.status(400).json({
                 message: "you have Create Already a Profile",
@@ -43,16 +65,33 @@ const createProfile = async (req, res) => {
         }
         const newProfile = await profileModel({
             studentId: req.user.userid,
-            name, dob, pob, bloodGroup, religion, address, city, postalCode,
+            name,
+            classCode,
+            roll,
+            group,
+            session,
+            dob,
+            pob,
+            address,
+            city,
+            postalCode,
             email: req.user.email,
-            phone, emergencyContact, guardianName, relationWith, relationContact, occupation, classOfAdmission, reason, photo
+            phone,
+            emergencyContact,
+            bloodGroup,
+            religion,
+            guardianName,
+            occupation,
+            relationWith,
+            relationContact,
+            photo
         });
 
 
 
         const profile = await newProfile.save();
-      await authModel.find({_id:req.user.userid});
-     
+        await authModel.find({ _id: req.user.userid });
+
 
         await authModel.updateOne({
             _id: req.user.userid
@@ -107,6 +146,11 @@ const deleteProfile = async (req, res) => {
     try {
         const isDelete = await profileModel.findByIdAndDelete(id);
         if (isDelete) {
+            await authModel.updateOne(
+                { _id: req.user.userid },
+                { $pull: { profile: isDelete._id } },
+                { new: true }
+            );
             res.status(200).json({
                 message: "Profile has been Delete"
             })

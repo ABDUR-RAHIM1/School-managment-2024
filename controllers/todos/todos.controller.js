@@ -84,10 +84,16 @@ const editTodo = async (req, res) => {
 
 const deleteTodo = async (req, res) => {
     const { id } = req.params;
+    const {userid} = req.params
     try {
         const isDelete = await TodosModel.findByIdAndDelete({ _id: id });
 
         if (isDelete) {
+            await studentsAuth.updateOne({_id:userid}, {
+                $pull : {
+                    todos : isDelete._id
+                }
+            })
             res.status(200).json({
                 message: "Delete successful"
             })
