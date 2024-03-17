@@ -14,9 +14,17 @@ const resultSchema = mongoose.Schema({
         type: String,
         required: [true, "class code is required"]
     },
+    roll: {
+        type: String,
+        required: [true, "Roll is required"]
+    },
+    group: {
+        type: String,
+        required: [true, "group is required"]
+    },
     examName: {
         type: String,
-        required: [true, "exam name is required"]
+        required: [true, "Exam name is required"]
     },
     subjects: {
         type: [String],

@@ -26,6 +26,7 @@ const getLoginAccount = async (req, res) => {
         .populate("results")
         .populate("todos")
         .populate("complains")
+        .populate("fee")
         res.status(200).json(allStudent)
     } catch (error) {
         res.status(500).json({

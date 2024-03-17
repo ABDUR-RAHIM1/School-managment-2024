@@ -46,6 +46,12 @@ const studentAuthSchema = mongoose.Schema({
             ref: "Complain"
         }
     ],
+    fee: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "fee"
+        }
+    ],
 
 }, { timestamps: true });
 

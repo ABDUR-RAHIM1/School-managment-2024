@@ -15,6 +15,7 @@ const complainRouter = require("./routes/complain/complain.route");
 const noticeRouter = require("./routes/notice/notice.route");
 const resultsRouter = require("./routes/result/result.route");
 const classRotineRouter = require("./routes/classRoutine/classRoutine.route");
+const feeRouter = require("./routes/fee/fee.route");
 
 const app = express()
 app.use(express.json())
@@ -53,7 +54,13 @@ app.use("/api/notice", noticeRouter)
 app.use("/api/results", resultsRouter)
 
 //  routine
-app.use("/api/routine" , classRotineRouter)
+app.use("/api/routine", classRotineRouter)
+
+
+//  fee's
+
+app.use("/api/fee", feeRouter)
+
 
 //  test route
 app.get("/test", async (req, res) => {

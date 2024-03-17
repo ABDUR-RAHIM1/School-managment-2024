@@ -19,7 +19,6 @@ const getAllComplain = async (req, res) => {
 const addComplain = async (req, res) => {
     const {subject , details} = req.body;
     const {userid , username , email} = req.user;
-    console.log(req.user)
     try {
        const newComplain = await ComplinModel({
            studentId : userid,

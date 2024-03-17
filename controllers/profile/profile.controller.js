@@ -65,7 +65,7 @@ const createProfile = async (req, res) => {
         }
         const newProfile = await profileModel({
             studentId: req.user.userid,
-            name,
+            name: req.user.username,
             classCode,
             roll,
             group,

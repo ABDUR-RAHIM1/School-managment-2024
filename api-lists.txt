@@ -114,3 +114,11 @@ classRoutine
   put - http://localhost:9000/api/routine/edit/:id  
   delete - http://localhost:9000/api/routine/delete/:id  
 */
+
+fee's
+/* /api/fee
+    get all - http://localhost:9000/api/fee/all 
+    add - http://localhost:9000/api/fee/add 
+    edit - http://localhost:9000/api/fee/edit/:id 
+    delete - http://localhost:9000/api/fee/delete/:id 
+*/

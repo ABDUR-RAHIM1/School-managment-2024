@@ -1,13 +1,11 @@
 const authModel = require("../../models/auth/studentAuth.model");
+const feeModel = require("../../models/fee/fee.model");
 const profileModel = require("../../models/profile/studentProfile.model");
-const ResutlsModel = require("../../models/result/result.model");
 
-
-//  for admin 
-const getAllResult = async (req, res) => {
+const getAllFee = async (req, res) => {
     try {
-        const results = await ResutlsModel.find();
-        res.status(200).json(results)
+        const fees = await feeModel.find();
+        res.status(200).json(fees)
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -16,32 +14,44 @@ const getAllResult = async (req, res) => {
     }
 }
 
-const addResult = async (req, res) => {
-    const { studentId, examName, subjects, marks } = req.body;
+
+const addFee = async (req, res) => {
+    const { studentId, feeAmount, feePaid, feeFor } = req.body;
     try {
 
         const studentInfo = await profileModel.findOne({ studentId });
-    
-        const newResutls = await ResutlsModel({
+        const existingFee = await feeModel.findOne({ studentId, feeFor });
+
+        if (!studentInfo) {
+            return res.status(404).json({ message: "student not found" })
+        }
+
+        if (existingFee && existingFee.feeFor === feeFor) {
+            return res.status(400).json({
+                message: "Fee already exists for this student"
+            })
+        }
+
+        const newFee = await feeModel({
             studentId,
             studentName: studentInfo.name,
             classCode: studentInfo.classCode,
-            roll: studentInfo.roll,
             group: studentInfo.group,
-            examName,
-            subjects,
-            marks
+            roll: studentInfo.roll,
+            feeAmount,
+            feePaid,
+            feeFor
         });
+        const fee = await newFee.save();
 
-        await newResutls.save();
         await authModel.updateOne({ _id: studentId }, {
             $push: {
-                results: newResutls._id
+                fee: fee._id
             }
-        }, { new: true });
+        })
 
         res.status(201).json({
-            message: "result Published",
+            message: "fee added successful"
         })
     } catch (error) {
         res.status(500).json({
@@ -51,20 +61,20 @@ const addResult = async (req, res) => {
     }
 }
 
-const editResult = async (req, res) => {
+const editFee = async (req, res) => {
     const { id } = req.params;
     try {
-        const isUpdate = await ResutlsModel.findByIdAndUpdate({ _id: id }, {
+        const isUpdate = await feeModel.findByIdAndUpdate({ _id: id }, {
             $set: req.body
         }, { new: true });
 
         if (isUpdate) {
             res.status(200).json({
-                message: "Result has been updated"
+                message: 'Fee has been updated'
             })
         } else {
             res.status(404).json({
-                message: "Result not found"
+                message: 'Fee not found'
             })
         }
 
@@ -76,27 +86,29 @@ const editResult = async (req, res) => {
     }
 }
 
-const deleteResult = async (req, res) => {
+const deleteFee = async (req, res) => {
     const { id } = req.params;
     try {
-        const isDelete = await ResutlsModel.findByIdAndDelete({ _id: id });
+        const isDelete = await feeModel.findByIdAndDelete({ _id: id });
 
         if (isDelete) {
             res.status(200).json({
-                message: "Result has been Deleted"
+                message: "Delete successful"
             })
         } else {
             res.status(404).json({
-                message: "Result not found"
+                message: "record not found"
             })
         }
+
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         })
     }
-}
+};
 
 
-module.exports = { getAllResult, addResult, editResult, deleteResult }
+
+module.exports = { getAllFee, addFee, editFee, deleteFee };

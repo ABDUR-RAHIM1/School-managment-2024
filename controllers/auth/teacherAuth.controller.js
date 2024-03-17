@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 
-const getAllTeachers =async (req, res)=>{
+const getAllTeachers = async (req, res) => {
     try {
         const allTeachers = await teacherModel.find()
         res.status(200).json(allTeachers)
@@ -16,13 +16,12 @@ const getAllTeachers =async (req, res)=>{
 }
 
 
-const getLoginTeacher = async (req, res)=> {
+const getLoginTeacher = async (req, res) => {
     const { userid, email } = req.user;
     try {
         const allStudent = await teacherModel.find({ _id: userid, email })
-        .populate("profile")
-        .populate("routine")
-        // .populate("profile");
+            .populate("profile")
+            .populate("routine")
         res.status(200).json(allStudent)
     } catch (error) {
         res.status(500).json({
@@ -32,38 +31,38 @@ const getLoginTeacher = async (req, res)=> {
     }
 }
 
-const registerTeacher = async (req, res)=>{
-    const {username ,email , password } = req.body
-     try {
+const registerTeacher = async (req, res) => {
+    const { username, email, password } = req.body
+    try {
 
         const hashPassword = bcrypt.hashSync(password, 10)
         const isEmailExist = await teacherModel.findOne({ email });
 
-         if (isEmailExist) {
-             return res.status(400).json({
-                message :"Email Already Exist"
-             })
-         }
-         
-         const newTeacher = await teacherModel({
+        if (isEmailExist) {
+            return res.status(400).json({
+                message: "Email Already Exist"
+            })
+        }
+
+        const newTeacher = await teacherModel({
             username,
             email,
-            password : hashPassword
-         });
+            password: hashPassword
+        });
 
-         const teacher = await newTeacher.save();
+        const teacher = await newTeacher.save();
 
-         res.status(201).json({
-            message : "Register Successfull",
+        res.status(201).json({
+            message: "Register Successfull",
             teacher
-         })
+        })
 
-     } catch (error) {
+    } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         })
-     }
+    }
 }
 
 
@@ -76,7 +75,7 @@ const loginTeacher = async (req, res) => {
 
         if (isEmail) {
             const isPassword = bcrypt.compareSync(password, isEmail.password);
-             
+
             if (isPassword) {
                 res.status(200).json({
                     message: "Login Successful",
@@ -87,13 +86,13 @@ const loginTeacher = async (req, res) => {
                     }, secretKey),
                     isLogin: true
                 })
-            }else{
+            } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
                     isLogin: false
                 })
             }
-           
+
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
@@ -162,4 +161,4 @@ const deleteOneTeacher = async (req, res) => {
 }
 
 
-module.exports = {getAllTeachers , getLoginTeacher , registerTeacher , loginTeacher , editTeacher , deleteOneTeacher}
+module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, loginTeacher, editTeacher, deleteOneTeacher }
