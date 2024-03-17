@@ -14,6 +14,7 @@ const todosRouter = require("./routes/todos/todos.route");
 const complainRouter = require("./routes/complain/complain.route");
 const noticeRouter = require("./routes/notice/notice.route");
 const resultsRouter = require("./routes/result/result.route");
+const classRotineRouter = require("./routes/classRoutine/classRoutine.route");
 
 const app = express()
 app.use(express.json())
@@ -50,6 +51,9 @@ app.use("/api/notice", noticeRouter)
 
 //  results
 app.use("/api/results", resultsRouter)
+
+//  routine
+app.use("/api/routine" , classRotineRouter)
 
 //  test route
 app.get("/test", async (req, res) => {

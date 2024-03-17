@@ -27,6 +27,12 @@ const teacherAuthSchema = mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: "TeacherProfile"
         }
+    ],
+    routine: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "classRoutine"
+        }
     ]
 
 }, { timestamps: true });
