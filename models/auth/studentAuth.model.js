@@ -28,6 +28,12 @@ const studentAuthSchema = mongoose.Schema({
             ref: "Profile"
         }
     ],
+    results: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Results"
+        }
+    ],
     todos: [
         {
             type: mongoose.Types.ObjectId,
@@ -40,6 +46,7 @@ const studentAuthSchema = mongoose.Schema({
             ref: "Complain"
         }
     ],
+
 }, { timestamps: true });
 
 

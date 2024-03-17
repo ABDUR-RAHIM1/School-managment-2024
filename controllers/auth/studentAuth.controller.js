@@ -23,6 +23,7 @@ const getLoginAccount = async (req, res) => {
     try {
         const allStudent = await authModel.find({ _id: userid, email })
         .populate("profile")
+        .populate("results")
         .populate("todos")
         .populate("complains")
         res.status(200).json(allStudent)

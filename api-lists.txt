@@ -93,5 +93,16 @@ complain
 
 notice - admin can access
 /*
- 
+   get all - http://localhost:9000/api/notice/all 
+   add - http://localhost:9000/api/notice/add 
+   edit - http://localhost:9000/api/notice/edit/:id 
+   delete - http://localhost:9000/api/notice/delete/:id 
+*/
+
+results
+/*
+   get all - http://localhost:9000/api/results/all 
+   add - http://localhost:9000/api/results/add 
+   edit - http://localhost:9000/api/results/edit/:id 
+   delete - http://localhost:9000/api/results/delete/:id 
 */

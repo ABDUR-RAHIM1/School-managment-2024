@@ -12,6 +12,8 @@ const attendenceRouter = require("./routes/attandence/attandence");
 const taecherAttendanceouter = require("./routes/attandence/teacherAttendance.route");
 const todosRouter = require("./routes/todos/todos.route");
 const complainRouter = require("./routes/complain/complain.route");
+const noticeRouter = require("./routes/notice/notice.route");
+const resultsRouter = require("./routes/result/result.route");
 
 const app = express()
 app.use(express.json())
@@ -43,7 +45,11 @@ app.use("/api/todos", todosRouter)
 //  complain
 app.use("/api/complain", complainRouter)
 
+//  notice
+app.use("/api/notice", noticeRouter)
 
+//  results
+app.use("/api/results", resultsRouter)
 
 //  test route
 app.get("/test", async (req, res) => {
