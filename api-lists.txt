@@ -139,3 +139,23 @@ comitee
   edit - http://localhost:9000/api/comitee/edit/:id 
   delete - http://localhost:9000/api/comitee/delete/:id 
 */
+
+book list 
+/*
+   get all - http://localhost:9000/api/booklist/all 
+   add - http://localhost:9000/api/booklist/add 
+   edit - http://localhost:9000/api/booklist/edit/:id 
+   delete - http://localhost:9000/api/booklist/delete/:id 
+*/
+
+
+exam routine
+gallary
+abouts page
+contact form
+add tour slider
+add slider
+news marque
+logo
+review for parants
+parants login (optional)
