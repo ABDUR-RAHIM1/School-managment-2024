@@ -122,3 +122,20 @@ fee's
     edit - http://localhost:9000/api/fee/edit/:id 
     delete - http://localhost:9000/api/fee/delete/:id 
 */
+
+staff's
+
+/*
+  get all - http://localhost:9000/api/staffs/all 
+  add - http://localhost:9000/api/staffs/add 
+  edit - http://localhost:9000/api/staffs/edit/:id 
+  delete - http://localhost:9000/api/staffs/delete/:id 
+*/
+
+comitee
+/*
+  get all - http://localhost:9000/api/comitee/all 
+  add - http://localhost:9000/api/comitee/add 
+  edit - http://localhost:9000/api/comitee/edit/:id 
+  delete - http://localhost:9000/api/comitee/delete/:id 
+*/
