@@ -32,8 +32,6 @@ admin
 
   3 tecahers authentication 
 /*
-
-
   get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
     register teachers  - http://localhost:9000/api/teachers/auth/register
@@ -171,10 +169,28 @@ logo
    get all - http://localhost:9000/api/logo/all 
    add - http://localhost:9000/api/logo/add 
    edit - http://localhost:9000/api/logo/edit/:id 
+   delete - http://localhost:9000/api/logo/delete/:id 
 */
 
 abouts page
+/*
+  get all - http://localhost:9000/api/about/all
+  add - http://localhost:9000/api/about/add
+  edit - http://localhost:9000/api/about/edit/:id
+  delete - http://localhost:9000/api/about/delete/:id
+
+*/
+
+
 contact form
+/*
+  get all - http://localhost:9000/api/contact/all
+  add - http://localhost:9000/api/contact/add
+  edit - http://localhost:9000/api/contact/edit/:id
+  delete - http://localhost:9000/api/contact/delete/:id
+
+*/
+
 post
 add tour slider
 add slider

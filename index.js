@@ -22,6 +22,8 @@ const bookListRouter = require("./routes/bookList/bookList.route");
 const examRoutineRouter = require("./routes/examRoutine/examRoutine.route");
 const gallaryRouter = require("./routes/gallary/gallary.route");
 const logoRouter = require("./routes/logo/logo.route");
+const aboutRouter = require("./routes/about/about.route");
+const contactRouter = require("./routes/contact/contact.route");
  
 const app = express()
 app.use(express.json())
@@ -84,6 +86,14 @@ app.use("/api/gallary", gallaryRouter)
 
 //  logo
 app.use("/api/logo", logoRouter)
+
+//  about pages
+app.use("/api/about", aboutRouter)
+
+//  contact
+app.use("/api/contact", contactRouter)
+
+
 
 //  test route
 app.get("/test", async (req, res) => {
