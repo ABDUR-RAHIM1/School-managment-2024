@@ -73,8 +73,15 @@ const deleteRoutine = async (req, res) => {
     const { id } = req.params;
     try {
         const isDelete = await classRoutineModel.findByIdAndDelete({ _id: id });
+         
         if (isDelete) {
-          
+
+            await teacherModel.updateOne({ _id: isDelete.teacherId }, {
+                $pull: {
+                    routine: isDelete._id
+                }
+            }, { new: true })
+     
             res.status(200).json({
                 message: "routine has been deleted"
             })

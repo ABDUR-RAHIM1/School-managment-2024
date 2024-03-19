@@ -1,6 +1,6 @@
 const ComplinModel = require("../../models/complain/complain.model")
-const studentAuth = require("../../models/auth/studentAuth.model"); 
- 
+const studentAuth = require("../../models/auth/studentAuth.model");
+
 //  for admin
 const getAllComplain = async (req, res) => {
     try {
@@ -17,29 +17,29 @@ const getAllComplain = async (req, res) => {
 
 // for student
 const addComplain = async (req, res) => {
-    const {subject , details} = req.body;
-    const {userid , username , email} = req.user;
+    const { subject, details } = req.body;
+    const { userid, username, email } = req.user;
     try {
-       const newComplain = await ComplinModel({
-           studentId : userid,
-           studentName : username,
-           studentEmail:email,
-           subject,
-           details
-       });
+        const newComplain = await ComplinModel({
+            studentId: userid,
+            studentName: username,
+            studentEmail: email,
+            subject,
+            details
+        });
 
-       const complain = await newComplain.save();
+        const complain = await newComplain.save();
 
-       await studentAuth.updateOne({_id:userid}, {
-             $push : {
-                complains : complain._id
-             }
-       })
-       
-       res.status(201).json({
-        message : "submited complain",
-        complain
-       })
+        await studentAuth.updateOne({ _id: userid }, {
+            $push: {
+                complains: complain._id
+            }
+        })
+
+        res.status(201).json({
+            message: "submited complain",
+            complain
+        })
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
@@ -50,22 +50,22 @@ const addComplain = async (req, res) => {
 
 //  for student
 const editComplain = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
-         const isUpdate = await ComplinModel.findByIdAndUpdate({_id :id}, {
-            $set : req.body
-         }, {new :true} );
+        const isUpdate = await ComplinModel.findByIdAndUpdate({ _id: id }, {
+            $set: req.body
+        }, { new: true });
 
 
-         if (isUpdate) {
-             res.status(200).json({
-                message :"Update successfull"
-             })
-         }else{
+        if (isUpdate) {
             res.status(200).json({
-                message :"Record not found"
-             })
-         }
+                message: "Update successfull"
+            })
+        } else {
+            res.status(200).json({
+                message: "Record not found"
+            })
+        }
 
     } catch (error) {
         res.status(500).json({
@@ -78,26 +78,25 @@ const editComplain = async (req, res) => {
 
 //  for students
 const deleteComplain = async (req, res) => {
-    const {id} = req.params;
-    const {userid} = req.user;
+    const { id } = req.params; 
     try {
-         const isDelete = await ComplinModel.findByIdAndDelete({_id : id});
-         if (isDelete) {
+        const isDelete = await ComplinModel.findByIdAndDelete({ _id: id });
+        if (isDelete) {
 
-            await studentAuth.updateOne({_id : userid}, {
-                    $pull:{
-                        complains : isDelete._id
-                    }
+            await studentAuth.updateOne({ _id: isDelete.studentId }, {
+                $pull: {
+                    complains: isDelete._id
+                }
             })
 
-             res.status(200).json({
-                message :"Delete successful"
-             })
-         }else{
             res.status(200).json({
-                message :"Record not found"
-             })
-         }
+                message: "Delete successful"
+            })
+        } else {
+            res.status(200).json({
+                message: "Record not found"
+            })
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
@@ -107,4 +106,4 @@ const deleteComplain = async (req, res) => {
 }
 
 
-module.exports ={getAllComplain , addComplain , editComplain , deleteComplain}
+module.exports = { getAllComplain, addComplain, editComplain, deleteComplain }

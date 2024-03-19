@@ -149,13 +149,47 @@ book list
 */
 
 
-exam routine
+exam routine  - student can see routine on his classCode
+/*
+   get all -http://localhost:9000/api/examroutine/all 
+   add -http://localhost:9000/api/examroutine/add 
+   edit -http://localhost:9000/api/examroutine/edit/:id 
+   delete -http://localhost:9000/api/examroutine/delete/:id 
+*/
+
+
 gallary
+/*
+   get all -http://localhost:9000/api/gallary/all 
+  add -http://localhost:9000/api/gallary/add 
+  edit -http://localhost:9000/api/gallary/edit/:id 
+  delete -http://localhost:9000/api/gallary/delete/:id 
+*/
+
+logo
+/*
+   get all - http://localhost:9000/api/logo/all 
+   add - http://localhost:9000/api/logo/add 
+   edit - http://localhost:9000/api/logo/edit/:id 
+*/
+
 abouts page
 contact form
+post
 add tour slider
 add slider
 news marque
-logo
+
 review for parants
 parants login (optional)
+
+
+ //exam routine data model
+{
+  classCode : 10,
+  subjects : [
+         {subject : "bangla" , time : "10/04/2024"},
+         {subject : "english" , time : "11/04/2024"},
+         {subject : "math" , time : "12/04/2024"},
+  ]
+}

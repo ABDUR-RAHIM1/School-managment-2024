@@ -19,7 +19,10 @@ const feeRouter = require("./routes/fee/fee.route");
 const staffRouter = require("./routes/staff/staff.route");
 const comiteeRouter = require("./routes/comitee/comitee.route");
 const bookListRouter = require("./routes/bookList/bookList.route");
-
+const examRoutineRouter = require("./routes/examRoutine/examRoutine.route");
+const gallaryRouter = require("./routes/gallary/gallary.route");
+const logoRouter = require("./routes/logo/logo.route");
+ 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -72,6 +75,15 @@ app.use("/api/comitee", comiteeRouter)
 
 // booklists
 app.use("/api/booklist" , bookListRouter)
+
+//  exam routine
+app.use("/api/examroutine", examRoutineRouter)
+
+//  gallary 
+app.use("/api/gallary", gallaryRouter)
+
+//  logo
+app.use("/api/logo", logoRouter)
 
 //  test route
 app.get("/test", async (req, res) => {
