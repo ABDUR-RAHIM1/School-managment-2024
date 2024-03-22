@@ -34,13 +34,18 @@ const teacherAuthSchema = mongoose.Schema({
             ref: "classRoutine"
         }
     ],
+    posts: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Posts"
+        }
+    ],
     gallary: [
         {
             type: mongoose.Types.ObjectId,
             ref: "Gallary"
         }
-    ]
-
+    ],
 }, { timestamps: true });
 
 

@@ -191,13 +191,76 @@ contact form
 
 */
 
-post
-add tour slider
-add slider
-news marque
+[
+  post for teacher
+{
+    creactBy : tecaherId, (jwt token)
+    creator : teacherName (jwt)
+    title : string,
+    content : string,
+    photo : String
+}
+ 
+/*
+  get all - http://localhost:9000/api/posts/all
+  add - http://localhost:9000/api/posts/add   using jwt token
+  edit - http://localhost:9000/api/posts/edit/:id
+  delete - http://localhost:9000/api/posts/delete/:id
+*/
 
-review for parants
-parants login (optional)
+]
+
+
+[
+  
+  add tour slider for admin 
+
+{  
+  placeName,
+  phoho
+}
+/*
+  get all - http://localhost:9000/api/tourslider/all
+  add - http://localhost:9000/api/tourslider/add   
+  edit - http://localhost:9000/api/tourslider/edit/:id
+  delete - http://localhost:9000/api/tourslider/delete/:id
+*/]
+
+
+
+[
+  add slider
+  {
+    photo ->
+  }
+
+ /*
+    get all - http://localhost:9000/api/slider/all
+    add - http://localhost:9000/api/slider/add     
+    delete - http://localhost:9000/api/slider/delete/:id
+ */
+
+]
+
+
+[
+  news headline
+ {
+  text
+ }
+ /*
+    get all - http://localhost:9000/api/headline/all
+    add - http://localhost:9000/api/headline/add     
+    delete - http://localhost:9000/api/headline/delete/:id
+ */
+]
+
+[
+  review for parants
+  parants login (optional)
+
+   just review form to get name , email , photo and show that in testimonial cards
+]
 
 
  //exam routine data model

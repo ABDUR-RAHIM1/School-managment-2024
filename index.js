@@ -24,6 +24,10 @@ const gallaryRouter = require("./routes/gallary/gallary.route");
 const logoRouter = require("./routes/logo/logo.route");
 const aboutRouter = require("./routes/about/about.route");
 const contactRouter = require("./routes/contact/contact.route");
+const postRouter = require("./routes/posts/posts.route");
+const tourRouter = require("./routes/tourSlider/tourSlider.route");
+const heroSliderRouter = require("./routes/sliders/sliders.route");
+const headlineRouter = require("./routes/headline/headline.route");
  
 const app = express()
 app.use(express.json())
@@ -93,7 +97,17 @@ app.use("/api/about", aboutRouter)
 //  contact
 app.use("/api/contact", contactRouter)
 
+//  posts for teacher
+app.use("/api/posts", postRouter)
 
+//  tour sliders for admin
+app.use("/api/tourslider", tourRouter)
+
+//  hero slider
+app.use("/api/slider" , heroSliderRouter)
+
+//  headline for admin
+app.use("/api/headline", headlineRouter)
 
 //  test route
 app.get("/test", async (req, res) => {

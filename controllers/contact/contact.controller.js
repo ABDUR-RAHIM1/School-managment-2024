@@ -13,12 +13,12 @@ const getAllContact = async (req, res) => {
 }
 
 const addContact = async (req, res) => {
-    const { title, content, photo } = req.body;
+    const { name, email, message } = req.body;
     try {
         const newContact = await contactModel({
-            title,
-            content,
-            photo
+            name,
+            email,
+            message
         });
 
         await newContact.save();
