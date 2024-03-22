@@ -34,7 +34,7 @@ const getLoginTeacher = async (req, res) => {
 }
 
 const registerTeacher = async (req, res) => {
-    const { username, email, password } = req.body
+    const { username, email, position, password } = req.body
     try {
 
         const hashPassword = bcrypt.hashSync(password, 10)
@@ -49,6 +49,7 @@ const registerTeacher = async (req, res) => {
         const newTeacher = await teacherModel({
             username,
             email,
+            position,
             password: hashPassword
         });
 

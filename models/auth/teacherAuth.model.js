@@ -22,6 +22,10 @@ const teacherAuthSchema = mongoose.Schema({
         type: String,
         default: "teacher"
     },
+    position: {
+        type: String,
+        required: [true, "Position is Required"],
+    },
     status: {
         type: String,
         enum: ["active", "pending"],
