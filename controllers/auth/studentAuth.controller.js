@@ -22,11 +22,11 @@ const getLoginAccount = async (req, res) => {
     const { userid, email } = req.user;
     try {
         const allStudent = await authModel.find({ _id: userid, email })
-        .populate("profile")
-        .populate("results")
-        .populate("todos")
-        .populate("complains")
-        .populate("fee")
+            .populate("profile")
+            .populate("results")
+            .populate("todos")
+            .populate("complains")
+            .populate("fee")
         res.status(200).json(allStudent)
     } catch (error) {
         res.status(500).json({
@@ -72,6 +72,32 @@ const register = async (req, res) => {
     }
 }
 
+
+//  approve account -> used this api for admin
+const approveAccount = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isApprove = await authModel.findByIdAndUpdate(id,
+            { status: "active" },
+            { new: true });
+
+        if (!isApprove) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({
+            message: "Account approved successfully",
+            student: isApprove
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
+
+
+
 //  login 
 const login = async (req, res) => {
     const { email, password } = req.body
@@ -79,9 +105,18 @@ const login = async (req, res) => {
 
         const isEmail = await authModel.findOne({ email });
 
+        if (isEmail.status !== "active") {
+            return res.status(400).json(
+                {
+                    "message": "Your account has not been activated yet. Please contact with admin!",
+                    "isLogin": false
+                }
+           )
+        }
+
         if (isEmail) {
             const isPassword = bcrypt.compareSync(password, isEmail.password);
-             
+
             if (isPassword) {
                 res.status(200).json({
                     message: "Login Successful",
@@ -92,13 +127,13 @@ const login = async (req, res) => {
                     }, secretKey),
                     isLogin: true
                 })
-            }else{
+            } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
                     isLogin: false
                 })
             }
-           
+
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
@@ -167,4 +202,4 @@ const deleteOne = async (req, res) => {
 }
 
 
-module.exports = { getAllAccount, getLoginAccount, register, login, edit, deleteOne }
+module.exports = { getAllAccount, getLoginAccount, register, approveAccount, login, edit, deleteOne }

@@ -68,12 +68,47 @@ const registerTeacher = async (req, res) => {
 }
 
 
+//  isApprove
+
+const approveTeacher = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isApprove = await teacherModel.findByIdAndUpdate(id,
+            { status: "active" },
+            { new: true }
+        );
+
+        if (!isApprove) {
+            return res.status(404).json({ message: "Teacher not found" });
+        }
+        res.status(200).json({
+            message: "Account approved successfully",
+            teacher: isApprove
+        });
+
+    } catch (error) {
+        return res.status(404).json({
+            message: "Invalid Credential",
+            isLogin: false
+        })
+    }
+}
+
 
 const loginTeacher = async (req, res) => {
     const { email, password } = req.body
     try {
 
         const isEmail = await teacherModel.findOne({ email });
+
+        if (isEmail.status !== "active") {
+            return res.status(400).json(
+                {
+                    "message": "Your account has not been activated yet. Please contact with admin!",
+                    "isLogin": false
+                }
+            )
+        }
 
         if (isEmail) {
             const isPassword = bcrypt.compareSync(password, isEmail.password);
@@ -163,4 +198,4 @@ const deleteOneTeacher = async (req, res) => {
 }
 
 
-module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, loginTeacher, editTeacher, deleteOneTeacher }
+module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, approveTeacher, loginTeacher, editTeacher, deleteOneTeacher }

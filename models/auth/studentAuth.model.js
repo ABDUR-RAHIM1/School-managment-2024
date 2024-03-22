@@ -18,6 +18,11 @@ const studentAuthSchema = mongoose.Schema({
         minlength: [8, "password is Minimum 8 character"],
         required: [true, "Password is required"],
     },
+    status: {
+        type: String,
+        enum: ["active", "pending"],
+        default: "pending"
+    },
     role: {
         type: String,
         default: "student"

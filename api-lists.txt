@@ -12,8 +12,9 @@ admin
 /*
 1 / student authentication 
     get all login account - http://localhost:9000/api/student/auth/all
-    get all login account - http://localhost:9000/api/student/auth/user
+    get one login account - http://localhost:9000/api/student/auth/user
     register account - http://localhost:9000/api/auth/student/register
+    approve account - http://localhost:9000/api/auth/student/:id/approve
     login account - http://localhost:9000/api/auth/student/login
     edit account - http://localhost:9000/api/auth/student/edit/:id
     delete account - http://localhost:9000/api/auth/student/delete/:id
@@ -35,6 +36,7 @@ admin
   get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
     register teachers  - http://localhost:9000/api/teachers/auth/register
+     approve account - http://localhost:9000/api/auth/teachers/:id/approve
     login teachers  - http://localhost:9000/api/teachers/auth/login
     edit account  - http://localhost:9000/api/teachers/auth/edit/:id
     delete account  - http://localhost:9000/api/teachers/auth/delete/:id
