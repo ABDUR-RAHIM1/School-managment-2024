@@ -10,6 +10,11 @@ task ;
  - > admin create a modarator who can access limited - change role as a modararor
 
 
+[
+  1 teacher position -> principle ,assistent etc
+  2 student and techer account approve or  rejected by admin
+]
+
  4 / get login students attendance fetch on _id
  5 / add attendence with studenst profile's studentId and find this while the student is login
 

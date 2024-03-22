@@ -258,6 +258,17 @@ contact form
 [
   review for parants
   parants login (optional)
+  {
+    name,
+    email, 
+    photo,
+    review
+  }
+
+    get all - http://localhost:9000/api/review/all
+    add - http://localhost:9000/api/review/add     
+    delete - http://localhost:9000/api/review/delete/:id
+ */
 
    just review form to get name , email , photo and show that in testimonial cards
 ]

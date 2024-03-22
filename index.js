@@ -28,6 +28,7 @@ const postRouter = require("./routes/posts/posts.route");
 const tourRouter = require("./routes/tourSlider/tourSlider.route");
 const heroSliderRouter = require("./routes/sliders/sliders.route");
 const headlineRouter = require("./routes/headline/headline.route");
+const reviewRouter = require("./routes/review/review.route");
  
 const app = express()
 app.use(express.json())
@@ -108,6 +109,10 @@ app.use("/api/slider" , heroSliderRouter)
 
 //  headline for admin
 app.use("/api/headline", headlineRouter)
+
+//  review 
+app.use("/api/review" , reviewRouter)
+
 
 //  test route
 app.get("/test", async (req, res) => {
