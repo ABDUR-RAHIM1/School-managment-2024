@@ -1,287 +1,267 @@
 
-admin 
-/*
-    get all admin - http://localhost:9000/api/admin/auth/all
-     register admin - http://localhost:9000/api/admin/auth/register
-     login admin - http://localhost:9000/api/admin/auth/login
-     edit - http://localhost:9000/api/admin/auth/edit/:id
-     delete - http://localhost:9000/api/admin/auth/delete/:id
-*/
-
-
-/*
-1 / student authentication 
-    get all login account - http://localhost:9000/api/student/auth/all
-    get one login account - http://localhost:9000/api/student/auth/user
-    register account - http://localhost:9000/api/auth/student/register
-    approve account - http://localhost:9000/api/auth/student/:id/approve
-    login account - http://localhost:9000/api/auth/student/login
-    edit account - http://localhost:9000/api/auth/student/edit/:id
-    delete account - http://localhost:9000/api/auth/student/delete/:id
-*/
-
-/* 
- 2 / - student - profiles  
  
-    get all profiles - http://localhost:9000/api/profile/all
-    get users profiles - http://localhost:9000/api/profile/user
-    create profiles - http://localhost:9000/api/profile/create
-    edit profiles - http://localhost:9000/api/profile/edit/:id
-    delete profiles - http://localhost:9000/api/profile/delete/:id
 
-*/
+[
+  1 / admin authentication
+   {
+      get all admin - http://localhost:9000/api/admin/auth/all
+      register admin - http://localhost:9000/api/admin/auth/register
+      login admin - http://localhost:9000/api/admin/auth/login
+      edit - http://localhost:9000/api/admin/auth/edit/:id
+      delete - http://localhost:9000/api/admin/auth/delete/:id
+   }
 
-  3 tecahers authentication 
-/*
-  get all teachers  - http://localhost:9000/api/teachers/auth/all
+2 / results
+{ 
+    get all - http://localhost:9000/api/results/all 
+    add - http://localhost:9000/api/results/add 
+    edit - http://localhost:9000/api/results/edit/:id 
+    delete - http://localhost:9000/api/results/delete/:id
+ }
+ 
+3 / classRoutine
+ 
+ {
+   get all - http://localhost:9000/api/routine/all  
+  add - http://localhost:9000/api/routine/add  
+  put - http://localhost:9000/api/routine/edit/:id  
+  delete - http://localhost:9000/api/routine/delete/:id 
+}
+ 
+
+4 / staff's
+{ 
+    get all - http://localhost:9000/api/staffs/all 
+    add - http://localhost:9000/api/staffs/add 
+    edit - http://localhost:9000/api/staffs/edit/:id 
+    delete - http://localhost:9000/api/staffs/delete/:id 
+}
+ 
+
+5 / comitee
+{ 
+  get all - http://localhost:9000/api/comitee/all 
+  add - http://localhost:9000/api/comitee/add 
+  edit - http://localhost:9000/api/comitee/edit/:id 
+  delete - http://localhost:9000/api/comitee/delete/:id 
+}
+ 
+
+6 / book list 
+{  
+    get all - http://localhost:9000/api/booklist/all 
+    add - http://localhost:9000/api/booklist/add 
+    edit - http://localhost:9000/api/booklist/edit/:id 
+    delete - http://localhost:9000/api/booklist/delete/:id 
+}
+ 
+
+7 / fee's
+{   
+    get all - http://localhost:9000/api/fee/all - for admin
+    add - http://localhost:9000/api/fee/add   - for admin
+    edit - http://localhost:9000/api/fee/edit/:id  - for admin
+    delete - http://localhost:9000/api/fee/delete/:id  - for admin
+}
+ 
+ 
+8 / notice - admin can access
+{   
+  get all - http://localhost:9000/api/notice/all 
+   add - http://localhost:9000/api/notice/add 
+   edit - http://localhost:9000/api/notice/edit/:id 
+   delete - http://localhost:9000/api/notice/delete/:id
+ }
+ 
+
+9 / exam routine  - student can see routine on his classCode
+{ 
+    get all -http://localhost:9000/api/examroutine/all 
+   add -http://localhost:9000/api/examroutine/add 
+   edit -http://localhost:9000/api/examroutine/edit/:id 
+   delete -http://localhost:9000/api/examroutine/delete/:id
+ }
+ 
+
+
+10 /gallary
+{  
+  get all -http://localhost:9000/api/gallary/all - public
+  add -http://localhost:9000/api/gallary/add - teacher
+  edit -http://localhost:9000/api/gallary/edit/:id - teacher
+  delete -http://localhost:9000/api/gallary/delete/:id  - admin
+}
+ 
+
+11 / logo
+{  
+    get all - http://localhost:9000/api/logo/all 
+    add - http://localhost:9000/api/logo/add 
+    edit - http://localhost:9000/api/logo/edit/:id 
+    delete - http://localhost:9000/api/logo/delete/:id 
+}
+ 
+
+
+12 / abouts page
+ {
+    get all - http://localhost:9000/api/about/all
+    add - http://localhost:9000/api/about/add
+    edit - http://localhost:9000/api/about/edit/:id
+    delete - http://localhost:9000/api/about/delete/:id
+ }
+
+
+13 / contact form
+{
+  get all - http://localhost:9000/api/contact/all
+  add - http://localhost:9000/api/contact/add
+  edit - http://localhost:9000/api/contact/edit/:id
+  delete - http://localhost:9000/api/contact/delete/:id
+}
+ 
+  
+ 14 / add tour slider for admin 
+ { 
+    get all - http://localhost:9000/api/tourslider/all
+    add - http://localhost:9000/api/tourslider/add   
+    edit - http://localhost:9000/api/tourslider/edit/:id
+    delete - http://localhost:9000/api/tourslider/delete/:id
+  }
+ 
+ 15 / add slider
+{   
+    get all - http://localhost:9000/api/slider/all
+    add - http://localhost:9000/api/slider/add     
+    delete - http://localhost:9000/api/slider/delete/:id
+}
+ 
+ 16 / news / headline
+ {
+    get all - http://localhost:9000/api/headline/all
+    add - http://localhost:9000/api/headline/add     
+    delete - http://localhost:9000/api/headline/delete/:id
+ }
+
+17 / reviews 
+{
+    get all - http://localhost:9000/api/review/all
+    add - http://localhost:9000/api/review/add     
+    delete - http://localhost:9000/api/review/delete/:id
+}
+
+
+] //admin end here
+
+
+ 
+1 / 
+ [  student authentication 
+  {    get all login account - http://localhost:9000/api/student/auth/all
+      get one login account - http://localhost:9000/api/student/auth/user
+      register account - http://localhost:9000/api/auth/student/register
+      approve account - http://localhost:9000/api/auth/student/:id/approve - for admin
+      login account - http://localhost:9000/api/auth/student/login
+      edit account - http://localhost:9000/api/auth/student/edit/:id
+      delete account - http://localhost:9000/api/auth/student/delete/:id}
+ 
+ 2 / student profile
+  {
+      get all profiles - http://localhost:9000/api/profile/all
+      get users profiles - http://localhost:9000/api/profile/user
+      create profiles - http://localhost:9000/api/profile/create
+      edit profiles - http://localhost:9000/api/profile/edit/:id
+      delete profiles - http://localhost:9000/api/profile/delete/:id
+  }
+
+
+
+  3 / student attendence 
+ { 
+      get all - http://localhost:9000/api/attendence/all
+      get  login st - http://localhost:9000/api/attendence/login-student
+      add all - http://localhost:9000/api/attendence/create
+      edit   - http://localhost:9000/api/attendence/edit/:id
+      delete   - http://localhost:9000/api/attendence/delete/:id
+}
+    
+
+4 / todos
+{ 
+    get all todo -> http://localhost:9000/api/todos/all
+    get logins todo -> http://localhost:9000/api/todos/users
+    add todo -> http://localhost:9000/api/todos/add
+    edit todo -> http://localhost:9000/api/todos/edit/:id
+    delete todo -> http://localhost:9000/api/todos/delete/:id
+  }
+ 
+ 
+5 / complain
+{ 
+  get all - http://localhost:9000/api/complain/all 
+  add - http://localhost:9000/api/complain/add   - token
+  edit - http://localhost:9000/api/complain/edit/:id
+  delete - http://localhost:9000/api/complain/delete/:id  - token
+}
+ 
+
+
+]
+//student end here
+
+ 
+
+[
+
+1 / teacher authentication
+{
+    get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
     register teachers  - http://localhost:9000/api/teachers/auth/register
-     approve account - http://localhost:9000/api/auth/teachers/:id/approve
+    approve account - http://localhost:9000/api/auth/teachers/:id/approve - for admin
     login teachers  - http://localhost:9000/api/teachers/auth/login
     edit account  - http://localhost:9000/api/teachers/auth/edit/:id
     delete account  - http://localhost:9000/api/teachers/auth/delete/:id
+}
 
-*/
-
-teacher profles
-/*
+2 / teacher profile
+{
     get all teacher profiles -  http://localhost:9000/api/teachers/profile/all
     get login teacher profile -  http://localhost:9000/api/teachers/profile/teacher
     create profiles -  http://localhost:9000/api/teachers/profile/create
     edit profiles -  http://localhost:9000/api/teachers/profile/edit
     delete profiles -  http://localhost:9000/api/teachers/profile/delete
-
-*/
-
-  student attendence 
-/*
-
-
-    get all - http://localhost:9000/api/attendence/all
-    get  login st - http://localhost:9000/api/attendence/login-student
-    add all - http://localhost:9000/api/attendence/create
-    edit   - http://localhost:9000/api/attendence/edit/:id
-    delete   - http://localhost:9000/api/attendence/delete/:id
-    
-*/
-
-teacher attendence
-/*
- get all - http://localhost:9000/api/attendence/teacher/all
- get login teacher att - http://localhost:9000/api/attendence/teacher/login-teacher
- add att - http://localhost:9000/api/attendence/teacher/add
- edit - http://localhost:9000/api/attendence/teacher/edit/:id
- delete - http://localhost:9000/api/attendence/teacher/delete/:id
-*/
-
-todos
-/*
-  get all todo -> http://localhost:9000/api/todos/all
-  get logins todo -> http://localhost:9000/api/todos/users
-  add todo -> http://localhost:9000/api/todos/add
-  edit todo -> http://localhost:9000/api/todos/edit/:id
-  delete todo -> http://localhost:9000/api/todos/delete/:id
-*/
-
-complain
-/*
-  get all - http://localhost:9000/api/complain/all 
-  add - http://localhost:9000/api/complain/add   - token
-  edit - http://localhost:9000/api/complain/edit/:id
-  delete - http://localhost:9000/api/complain/delete/:id  - token
-*/
-
-notice - admin can access
-/*
-   get all - http://localhost:9000/api/notice/all 
-   add - http://localhost:9000/api/notice/add 
-   edit - http://localhost:9000/api/notice/edit/:id 
-   delete - http://localhost:9000/api/notice/delete/:id 
-*/
-
-results
-/*
-   get all - http://localhost:9000/api/results/all 
-   add - http://localhost:9000/api/results/add 
-   edit - http://localhost:9000/api/results/edit/:id 
-   delete - http://localhost:9000/api/results/delete/:id 
-*/
-
-classRoutine
-/* 
-  get all - http://localhost:9000/api/routine/all  
-  add - http://localhost:9000/api/routine/add  
-  put - http://localhost:9000/api/routine/edit/:id  
-  delete - http://localhost:9000/api/routine/delete/:id  
-*/
-
-fee's
-/* /api/fee
-    get all - http://localhost:9000/api/fee/all 
-    add - http://localhost:9000/api/fee/add 
-    edit - http://localhost:9000/api/fee/edit/:id 
-    delete - http://localhost:9000/api/fee/delete/:id 
-*/
-
-staff's
-
-/*
-  get all - http://localhost:9000/api/staffs/all 
-  add - http://localhost:9000/api/staffs/add 
-  edit - http://localhost:9000/api/staffs/edit/:id 
-  delete - http://localhost:9000/api/staffs/delete/:id 
-*/
-
-comitee
-/*
-  get all - http://localhost:9000/api/comitee/all 
-  add - http://localhost:9000/api/comitee/add 
-  edit - http://localhost:9000/api/comitee/edit/:id 
-  delete - http://localhost:9000/api/comitee/delete/:id 
-*/
-
-book list 
-/*
-   get all - http://localhost:9000/api/booklist/all 
-   add - http://localhost:9000/api/booklist/add 
-   edit - http://localhost:9000/api/booklist/edit/:id 
-   delete - http://localhost:9000/api/booklist/delete/:id 
-*/
-
-
-exam routine  - student can see routine on his classCode
-/*
-   get all -http://localhost:9000/api/examroutine/all 
-   add -http://localhost:9000/api/examroutine/add 
-   edit -http://localhost:9000/api/examroutine/edit/:id 
-   delete -http://localhost:9000/api/examroutine/delete/:id 
-*/
-
-
-gallary
-/*
-   get all -http://localhost:9000/api/gallary/all 
-  add -http://localhost:9000/api/gallary/add 
-  edit -http://localhost:9000/api/gallary/edit/:id 
-  delete -http://localhost:9000/api/gallary/delete/:id 
-*/
-
-logo
-/*
-   get all - http://localhost:9000/api/logo/all 
-   add - http://localhost:9000/api/logo/add 
-   edit - http://localhost:9000/api/logo/edit/:id 
-   delete - http://localhost:9000/api/logo/delete/:id 
-*/
-
-abouts page
-/*
-  get all - http://localhost:9000/api/about/all
-  add - http://localhost:9000/api/about/add
-  edit - http://localhost:9000/api/about/edit/:id
-  delete - http://localhost:9000/api/about/delete/:id
-
-*/
-
-
-contact form
-/*
-  get all - http://localhost:9000/api/contact/all
-  add - http://localhost:9000/api/contact/add
-  edit - http://localhost:9000/api/contact/edit/:id
-  delete - http://localhost:9000/api/contact/delete/:id
-
-*/
-
-[
-  post for teacher
-{
-    creactBy : tecaherId, (jwt token)
-    creator : teacherName (jwt)
-    title : string,
-    content : string,
-    photo : String
 }
+
+3 / teacher attendence
+{
+    get all - http://localhost:9000/api/attendence/teacher/all
+    get login teacher att - http://localhost:9000/api/attendence/teacher/login-teacher
+    add att - http://localhost:9000/api/attendence/teacher/add
+    edit - http://localhost:9000/api/attendence/teacher/edit/:id
+    delete - http://localhost:9000/api/attendence/teacher/delete/:id
+}
+
+4 / post 
+{
+    get all - http://localhost:9000/api/posts/all
+    add - http://localhost:9000/api/posts/add   using jwt token
+    edit - http://localhost:9000/api/posts/edit/:id
+    delete - http://localhost:9000/api/posts/delete/:id
+}
+
+] teacher end here
+
  
-/*
-  get all - http://localhost:9000/api/posts/all
-  add - http://localhost:9000/api/posts/add   using jwt token
-  edit - http://localhost:9000/api/posts/edit/:id
-  delete - http://localhost:9000/api/posts/delete/:id
-*/
 
-]
-
-
-[
-  
-  add tour slider for admin 
-
-{  
-  placeName,
-  phoho
-}
-/*
-  get all - http://localhost:9000/api/tourslider/all
-  add - http://localhost:9000/api/tourslider/add   
-  edit - http://localhost:9000/api/tourslider/edit/:id
-  delete - http://localhost:9000/api/tourslider/delete/:id
-*/]
+ 
 
 
 
-[
-  add slider
-  {
-    photo ->
-  }
+ 
+ 
 
- /*
-    get all - http://localhost:9000/api/slider/all
-    add - http://localhost:9000/api/slider/add     
-    delete - http://localhost:9000/api/slider/delete/:id
- */
-
-]
+ 
 
 
-[
-  news headline
- {
-  text
- }
- /*
-    get all - http://localhost:9000/api/headline/all
-    add - http://localhost:9000/api/headline/add     
-    delete - http://localhost:9000/api/headline/delete/:id
- */
-]
-
-[
-  review for parants
-  parants login (optional)
-  {
-    name,
-    email, 
-    photo,
-    review
-  }
-
-    get all - http://localhost:9000/api/review/all
-    add - http://localhost:9000/api/review/add     
-    delete - http://localhost:9000/api/review/delete/:id
- */
-
-   just review form to get name , email , photo and show that in testimonial cards
-]
-
-
- //exam routine data model
-{
-  classCode : 10,
-  subjects : [
-         {subject : "bangla" , time : "10/04/2024"},
-         {subject : "english" , time : "11/04/2024"},
-         {subject : "math" , time : "12/04/2024"},
-  ]
-}
+ 

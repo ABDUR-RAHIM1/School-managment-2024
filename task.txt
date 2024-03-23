@@ -33,3 +33,6 @@ task ;
         photo : String
 
 */
+
+
+// teacher and students attendacne separet api fecth on techerId and studentsId
