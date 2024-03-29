@@ -14,7 +14,7 @@ const adminAuthSchema = mongoose.Schema({
         unique: [true, "Email Already Exist"]
     },
     password: {
-        type: String,
+        type: String, 
         minlength: [8, "password is Minimum 8 character"],
         required: [true, "Password is required"],
     },

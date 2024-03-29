@@ -20,7 +20,7 @@ const studentAuthSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["active", "pending"],
+        enum: ["active", "pending", "banned"],
         default: "pending"
     },
     role: {

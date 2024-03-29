@@ -6,9 +6,20 @@ const authModel = require('../../models/auth/studentAuth.model');
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
+
+    const { search } = req.query;
+
+
     try {
-        const allStudent = await authModel.find()
-        res.status(200).json(allStudent)
+        const regex = new RegExp(search, 'i');
+        if (search) {
+            const allStudent = await authModel.find({ username: { $regex: regex } }).select("-password")
+            res.status(200).json(allStudent)
+        } else {
+            const allStudent = await authModel.find().select("-password")
+            res.status(200).json(allStudent)
+        }
+
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -74,19 +85,21 @@ const register = async (req, res) => {
 
 
 //  approve account -> used this api for admin
-const approveAccount = async (req, res) => {
+const controllAccount = async (req, res) => {
     const { id } = req.params;
     try {
-        const isApprove = await authModel.findByIdAndUpdate(id,
-            { status: "active" },
+        const isUpdate = await authModel.findByIdAndUpdate(id,
+            {
+                $set: req.body
+            },
             { new: true });
 
-        if (!isApprove) {
-            return res.status(404).json({ message: "User not found" });
+        if (!isUpdate) {
+            return res.status(404).json({ message: "User not found", ok: false });
         }
         res.status(200).json({
-            message: "Account approved successfully",
-            student: isApprove
+            message: `has been ${isUpdate.status} successfully`,
+            ok: true
         });
     } catch (error) {
         res.status(500).json({
@@ -111,7 +124,7 @@ const login = async (req, res) => {
                     "message": "Your account has not been activated yet. Please contact with admin!",
                     "isLogin": false
                 }
-           )
+            )
         }
 
         if (isEmail) {
@@ -201,5 +214,21 @@ const deleteOne = async (req, res) => {
     }
 }
 
+const deleteMany = async (req, res) => {
+    const { ids } = req.body
+    try {
+        const isDeleted = await authModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+        } else {
+            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
 
-module.exports = { getAllAccount, getLoginAccount, register, approveAccount, login, edit, deleteOne }
+module.exports = { getAllAccount, getLoginAccount, register, controllAccount, login, edit, deleteOne, deleteMany }

@@ -3,19 +3,29 @@ const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 
-const getAllAdmin = async (req, res)=>{
-      try {
-          const admin = await adminAuthModel.find();
-          res.status(200).json(admin)
-      } catch (error) {
-         res.status(200).json({
-            message :"Internal Server Error",
-            error : error.message
-         })
-      }
+const getAllAdmin = async (req, res) => {
+    const { search } = req.query;
+
+    try {
+        let admin;
+        if (search) {
+             admin = await adminAuthModel.find({ role: search }).select('-password');
+          
+        }else{
+             admin = await adminAuthModel.find().select('-password');
+          
+        }
+
+        res.status(200).json(admin)
+    } catch (error) {
+        res.status(200).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
 }
 
-const registerAdmin = async (req, res)=>{
+const registerAdmin = async (req, res) => {
     const { username, email, password, role } = req.body
     try {
         const hashPassword = bcrypt.hashSync(password, 10)
@@ -43,10 +53,10 @@ const registerAdmin = async (req, res)=>{
         });
 
     } catch (error) {
-       res.status(200).json({
-          message :"Internal Server Error",
-          error : error.message
-       })
+        res.status(200).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
     }
 }
 
@@ -58,7 +68,7 @@ const loginAdmin = async (req, res) => {
 
         if (isEmail) {
             const isPassword = bcrypt.compareSync(password, isEmail.password);
-             
+
             if (isPassword) {
                 res.status(200).json({
                     message: "Login Successful",
@@ -69,13 +79,13 @@ const loginAdmin = async (req, res) => {
                     }, secretKey),
                     isLogin: true
                 })
-            }else{
+            } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
                     isLogin: false
                 })
             }
-           
+
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
@@ -93,54 +103,54 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-const editAdmin = async (req, res)=>{
-    const {id} = req.params;
+const editAdmin = async (req, res) => {
+    const { id } = req.params;
     try {
-        const isUpdated = await adminAuthModel.findByIdAndUpdate({_id : id}, {
-            $set : req.body
-        }, {new:true});
+        const isUpdated = await adminAuthModel.findByIdAndUpdate({ _id: id }, {
+            $set: req.body
+        }, { new: true });
 
         if (isUpdated) {
-             res.status(200).json({
-                message : "Updated successful"
-             })
-        }else{
             res.status(200).json({
-                message : "Record not found"
-             }) 
+                message: "Updated successful", 
+            })
+        } else {
+            res.status(200).json({
+                message: "Record not found"
+            })
         }
     } catch (error) {
-       res.status(200).json({
-          message :"Internal Server Error",
-          error : error.message
-       })
+        res.status(200).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
     }
 }
 
-const deleteAdmin = async (req, res)=>{
-    const {id} = req.params
+const deleteAdmin = async (req, res) => {
+    const { id } = req.params
     try {
-        const isDelete = await adminAuthModel.findByIdAndDelete({_id : id});
+        const isDelete = await adminAuthModel.findByIdAndDelete({ _id: id });
 
         if (isDelete) {
-              res.status(200).json({
-                message :'Delete successful'
-              })
-        }else{
             res.status(200).json({
-                message :'Record not found'
-              })
+                message: 'Delete successful'
+            })
+        } else {
+            res.status(200).json({
+                message: 'Record not found'
+            })
         }
     } catch (error) {
-       res.status(200).json({
-          message :"Internal Server Error",
-          error : error.message
-       })
+        res.status(200).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
     }
 }
 
 
-module.exports = {getAllAdmin , registerAdmin , loginAdmin , editAdmin , deleteAdmin}
+module.exports = { getAllAdmin, registerAdmin, loginAdmin, editAdmin, deleteAdmin }
 
 
 

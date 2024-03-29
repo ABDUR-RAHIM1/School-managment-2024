@@ -1,17 +1,18 @@
 
- 
+ yes - used in frontend
+ no - no used in frontend
 
 [
-  1 / admin authentication
+  1 / admin authentication done
    {
       get all admin - http://localhost:9000/api/admin/auth/all
-      register admin - http://localhost:9000/api/admin/auth/register
-      login admin - http://localhost:9000/api/admin/auth/login
+      register admin - http://localhost:9000/api/admin/auth/register - no
+      login admin - http://localhost:9000/api/admin/auth/login - no
       edit - http://localhost:9000/api/admin/auth/edit/:id
       delete - http://localhost:9000/api/admin/auth/delete/:id
    }
 
-2 / results
+2 / results done
 { 
     get all - http://localhost:9000/api/results/all 
     add - http://localhost:9000/api/results/add 
@@ -19,7 +20,7 @@
     delete - http://localhost:9000/api/results/delete/:id
  }
  
-3 / classRoutine
+3 / classRoutine done
  
  {
    get all - http://localhost:9000/api/routine/all  
@@ -29,7 +30,7 @@
 }
  
 
-4 / staff's
+4 / staff's done
 { 
     get all - http://localhost:9000/api/staffs/all 
     add - http://localhost:9000/api/staffs/add 
@@ -38,7 +39,7 @@
 }
  
 
-5 / comitee
+5 / comitee done
 { 
   get all - http://localhost:9000/api/comitee/all 
   add - http://localhost:9000/api/comitee/add 
@@ -47,7 +48,7 @@
 }
  
 
-6 / book list 
+6 / book list  done
 {  
     get all - http://localhost:9000/api/booklist/all 
     add - http://localhost:9000/api/booklist/add 
@@ -56,7 +57,7 @@
 }
  
 
-7 / fee's
+7 / fee's done
 {   
     get all - http://localhost:9000/api/fee/all - for admin
     add - http://localhost:9000/api/fee/add   - for admin
@@ -65,7 +66,7 @@
 }
  
  
-8 / notice - admin can access
+8 / notice - admin can access done
 {   
   get all - http://localhost:9000/api/notice/all 
    add - http://localhost:9000/api/notice/add 
@@ -74,7 +75,7 @@
  }
  
 
-9 / exam routine  - student can see routine on his classCode
+9 / exam routine - done - student can see routine on his classCode
 { 
     get all -http://localhost:9000/api/examroutine/all 
    add -http://localhost:9000/api/examroutine/add 
@@ -84,16 +85,9 @@
  
 
 
-10 /gallary
-{  
-  get all -http://localhost:9000/api/gallary/all - public
-  add -http://localhost:9000/api/gallary/add - teacher
-  edit -http://localhost:9000/api/gallary/edit/:id - teacher
-  delete -http://localhost:9000/api/gallary/delete/:id  - admin
-}
  
 
-11 / logo
+11 / logo done
 {  
     get all - http://localhost:9000/api/logo/all 
     add - http://localhost:9000/api/logo/add 
@@ -103,7 +97,7 @@
  
 
 
-12 / abouts page
+12 / abouts page done
  {
     get all - http://localhost:9000/api/about/all
     add - http://localhost:9000/api/about/add
@@ -112,16 +106,16 @@
  }
 
 
-13 / contact form
+13 / contact form done
 {
   get all - http://localhost:9000/api/contact/all
-  add - http://localhost:9000/api/contact/add
+  add - http://localhost:9000/api/contact/add - users
   edit - http://localhost:9000/api/contact/edit/:id
   delete - http://localhost:9000/api/contact/delete/:id
 }
  
   
- 14 / add tour slider for admin 
+ 14 / add tour slider for admin  done
  { 
     get all - http://localhost:9000/api/tourslider/all
     add - http://localhost:9000/api/tourslider/add   
@@ -129,24 +123,24 @@
     delete - http://localhost:9000/api/tourslider/delete/:id
   }
  
- 15 / add slider
+ 15 / add slider done
 {   
     get all - http://localhost:9000/api/slider/all
     add - http://localhost:9000/api/slider/add     
     delete - http://localhost:9000/api/slider/delete/:id
 }
  
- 16 / news / headline
+ 16 / news / headline done
  {
     get all - http://localhost:9000/api/headline/all
     add - http://localhost:9000/api/headline/add     
     delete - http://localhost:9000/api/headline/delete/:id
  }
 
-17 / reviews 
+17 / reviews done
 {
     get all - http://localhost:9000/api/review/all
-    add - http://localhost:9000/api/review/add     
+    add - http://localhost:9000/api/review/add     - users 
     delete - http://localhost:9000/api/review/delete/:id
 }
 
@@ -154,29 +148,32 @@
 ] //admin end here
 
 
+
  
-1 / 
+1 /  done for admin
  [  student authentication 
-  {    get all login account - http://localhost:9000/api/student/auth/all
-      get one login account - http://localhost:9000/api/student/auth/user
-      register account - http://localhost:9000/api/auth/student/register
+  {   get all login account - http://localhost:9000/api/student/auth/all - admin
+      get one login account - http://localhost:9000/api/student/auth/user - student
+      register account - http://localhost:9000/api/auth/student/register - student
       approve account - http://localhost:9000/api/auth/student/:id/approve - for admin
-      login account - http://localhost:9000/api/auth/student/login
-      edit account - http://localhost:9000/api/auth/student/edit/:id
-      delete account - http://localhost:9000/api/auth/student/delete/:id}
+      login account - http://localhost:9000/api/auth/student/login - student
+      edit account - http://localhost:9000/api/auth/student/edit/:id - student
+      delete account - http://localhost:9000/api/auth/student/delete/:id - admin / student
+      delete many  - http://localhost:9000/api/auth/student/delete-many/ - admin / - post route
+}
  
- 2 / student profile
+ 2 / student profile done
   {
-      get all profiles - http://localhost:9000/api/profile/all
+      get all profiles - http://localhost:9000/api/profile/all - for admin
       get users profiles - http://localhost:9000/api/profile/user
       create profiles - http://localhost:9000/api/profile/create
       edit profiles - http://localhost:9000/api/profile/edit/:id
-      delete profiles - http://localhost:9000/api/profile/delete/:id
+      delete profiles - http://localhost:9000/api/profile/delete/:id - admin / student
   }
 
 
 
-  3 / student attendence 
+  3 / student attendence done for admin
  { 
       get all - http://localhost:9000/api/attendence/all
       get  login st - http://localhost:9000/api/attendence/login-student
@@ -198,10 +195,10 @@
  
 5 / complain
 { 
-  get all - http://localhost:9000/api/complain/all 
-  add - http://localhost:9000/api/complain/add   - token
-  edit - http://localhost:9000/api/complain/edit/:id
-  delete - http://localhost:9000/api/complain/delete/:id  - token
+  get all - http://localhost:9000/api/complain/all - admin(done) / student
+  add - http://localhost:9000/api/complain/add   - token - student
+  edit - http://localhost:9000/api/complain/edit/:id - student
+  delete - http://localhost:9000/api/complain/delete/:id  - token - student
 }
  
 
@@ -213,7 +210,7 @@
 
 [
 
-1 / teacher authentication
+1 / teacher authentication done for admin
 {
     get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
@@ -233,7 +230,7 @@
     delete profiles -  http://localhost:9000/api/teachers/profile/delete
 }
 
-3 / teacher attendence
+3 / teacher attendence done for admin
 {
     get all - http://localhost:9000/api/attendence/teacher/all
     get login teacher att - http://localhost:9000/api/attendence/teacher/login-teacher
@@ -242,13 +239,24 @@
     delete - http://localhost:9000/api/attendence/teacher/delete/:id
 }
 
-4 / post 
+4 / post for teacher 
 {
     get all - http://localhost:9000/api/posts/all
     add - http://localhost:9000/api/posts/add   using jwt token
     edit - http://localhost:9000/api/posts/edit/:id
     delete - http://localhost:9000/api/posts/delete/:id
 }
+
+
+
+10 /gallary for teacher and admin
+{  
+  get all -http://localhost:9000/api/gallary/all - public
+  add -http://localhost:9000/api/gallary/add - teacher
+  edit -http://localhost:9000/api/gallary/edit/:id - teacher
+  delete -http://localhost:9000/api/gallary/delete/:id  - admin
+}
+
 
 ] teacher end here
 
