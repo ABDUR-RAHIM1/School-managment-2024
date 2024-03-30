@@ -199,7 +199,8 @@
   add - http://localhost:9000/api/complain/add   - token - student
   edit - http://localhost:9000/api/complain/edit/:id - student
   delete - http://localhost:9000/api/complain/delete/:id  - token - student
-}
+  seen or not - http://localhost:9000/api/complain/:id/checking - for admin
+}  
  
 
 

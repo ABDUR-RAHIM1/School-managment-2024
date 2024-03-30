@@ -27,6 +27,10 @@ const studentAuthSchema = mongoose.Schema({
         type: String,
         default: "student"
     },
+    photo: {
+        type: String,
+        default: "photo"
+    },
     profile: [
         {
             type: mongoose.Types.ObjectId,

@@ -22,6 +22,11 @@ const complainSchema = mongoose.Schema({
         type: String,
         required: [true, "details is Required"]
     },
+    isCheck: {
+        type: String,
+        enum: ["checked", "pending"],
+        default: "pending"
+    }
 }, { timestamps: true });
 
 

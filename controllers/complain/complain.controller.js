@@ -3,9 +3,22 @@ const studentAuth = require("../../models/auth/studentAuth.model");
 
 //  for admin
 const getAllComplain = async (req, res) => {
+    const { search } = req.query;
+    const regex = new RegExp(search, 'i');
+    const filter = {
+        $or: [
+            { studentName: { $regex: regex } },
+            { isCheck: { $regex: regex } }
+        ]
+    }
     try {
-        const complains = await ComplinModel.find();
-        res.status(200).json(complains)
+        if (search) {
+            const complains = await ComplinModel.find(filter);
+            res.status(200).json(complains)
+        } else {
+            const complains = await ComplinModel.find();
+            res.status(200).json(complains)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
@@ -75,10 +88,35 @@ const editComplain = async (req, res) => {
     }
 }
 
+// for admin 
+const checkComplain = async (req, res) => {
+    const { id } = req.params;
+    const isChceking = await ComplinModel.findByIdAndUpdate({ _id: id },
+        { isCheck: "checked" },
+        { new: true });
+
+    if (isChceking) {
+        res.status(200).json({
+            message: "Seen"
+        })
+    } else {
+        res.status(404).json({
+            message: "complain not found"
+        })
+    }
+    try {
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
 
 //  for students
 const deleteComplain = async (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
     try {
         const isDelete = await ComplinModel.findByIdAndDelete({ _id: id });
         if (isDelete) {
@@ -106,4 +144,7 @@ const deleteComplain = async (req, res) => {
 }
 
 
-module.exports = { getAllComplain, addComplain, editComplain, deleteComplain }
+
+
+
+module.exports = { getAllComplain, addComplain, checkComplain, editComplain, deleteComplain }

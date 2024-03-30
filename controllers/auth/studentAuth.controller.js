@@ -12,8 +12,14 @@ const getAllAccount = async (req, res) => {
 
     try {
         const regex = new RegExp(search, 'i');
+        const filter = {
+            $or: [
+                { username: { $regex: regex } },
+                { status: { $regex: regex } }
+            ]
+        }
         if (search) {
-            const allStudent = await authModel.find({ username: { $regex: regex } }).select("-password")
+            const allStudent = await authModel.find(filter).select("-password")
             res.status(200).json(allStudent)
         } else {
             const allStudent = await authModel.find().select("-password")
@@ -49,7 +55,7 @@ const getLoginAccount = async (req, res) => {
 
 
 const register = async (req, res) => {
-    const { username, email, password, role } = req.body
+    const { username, email, password, role, photo } = req.body
     try {
         const hashPassword = bcrypt.hashSync(password, 10)
         const isEmailExist = await authModel.findOne({ email });
@@ -65,7 +71,8 @@ const register = async (req, res) => {
             username,
             email,
             password: hashPassword,
-            role
+            role,
+            photo
         });
         await newStudent.validate();
         await newStudent.save();
@@ -166,21 +173,20 @@ const login = async (req, res) => {
 
 
 const edit = async (req, res) => {
-    const { username, email, password } = req.body;
     const { id } = req.params
 
     try {
         const updatedUser = await authModel.findByIdAndUpdate(id,
-            { username, email, password },
+            { $set: req.body },
             { new: true });
 
         if (updatedUser) {
             res.status(200).json({
-                message: "Update Successful"
+                message: "Update Successful",
             })
         } else {
             res.status(404).json({
-                message: "user Not Found"
+                message: "Not Found"
             })
         }
 
