@@ -4,9 +4,22 @@ const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 
 const getAllTeachers = async (req, res) => {
+    const { search } = req.query;
     try {
-        const allTeachers = await teacherModel.find()
-        res.status(200).json(allTeachers)
+        const regex = new RegExp(search, 'i');
+        const filter = {
+            $or: [
+                { username: { $regex: regex } },
+                { status: { $regex: regex } }
+            ]
+        }
+        if (search) {
+            const allTeachers = await teacherModel.find(filter).select("-password")
+            res.status(200).json(allTeachers)
+        } else {
+            const allTeachers = await teacherModel.find().select("-password")
+            res.status(200).json(allTeachers)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -71,27 +84,27 @@ const registerTeacher = async (req, res) => {
 
 //  isApprove
 
-const approveTeacher = async (req, res) => {
+const controllTeacher = async (req, res) => {
     const { id } = req.params;
     try {
-        const isApprove = await teacherModel.findByIdAndUpdate(id,
-            { status: "active" },
-            { new: true }
-        );
+        const isUpdate = await authModel.findByIdAndUpdate(id,
+            {
+                $set: req.body
+            },
+            { new: true });
 
-        if (!isApprove) {
-            return res.status(404).json({ message: "Teacher not found" });
+        if (!isUpdate) {
+            return res.status(404).json({ message: "User not found", ok: false });
         }
         res.status(200).json({
-            message: "Account approved successfully",
-            teacher: isApprove
+            message: `has been ${isUpdate.status} successfully`,
+            ok: true
         });
-
     } catch (error) {
-        return res.status(404).json({
-            message: "Invalid Credential",
-            isLogin: false
-        })
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
     }
 }
 
@@ -198,5 +211,21 @@ const deleteOneTeacher = async (req, res) => {
     }
 }
 
+const deleteMany = async (req, res) => {
+    const { ids } = req.body
+    try {
+        const isDeleted = await teacherModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+        } else {
+            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
 
-module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, approveTeacher, loginTeacher, editTeacher, deleteOneTeacher }
+module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, controllTeacher, loginTeacher, editTeacher, deleteOneTeacher ,deleteMany }

@@ -1,9 +1,16 @@
 const contactModel = require("../../models/contact/contact.model")
 
 const getAllContact = async (req, res) => {
+    const { search } = req.query;
     try {
-        const contacts = await contactModel.find();
-        res.status(200).json(contacts)
+        if (search) {
+            const regEx = new RegExp(search, "i")
+            const contacts = await contactModel.find({ name: { $regex: regEx } });
+            res.status(200).json(contacts)
+        } else {
+            const contacts = await contactModel.find();
+            res.status(200).json(contacts)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -59,9 +66,9 @@ const editContact = async (req, res) => {
 
 
 const deleteContact = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body;
     try {
-        const isDeleted = await contactModel.findByIdAndDelete({ _id: id });
+        const isDeleted = await contactModel.deleteMany({ _id: { $in: ids } });
         if (isDeleted) {
             res.status(200).json({
                 message: 'Contact Message has been Deleted'

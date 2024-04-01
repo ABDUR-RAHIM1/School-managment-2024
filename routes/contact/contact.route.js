@@ -5,6 +5,6 @@ const router = require("express").Router();
 router.get("/all", getAllContact)
 router.post("/add", addContact)
 router.put("/edit/:id", editContact)
-router.delete("/delete/:id", deleteContact)
+router.post("/delete", deleteContact)
 
 module.exports = router

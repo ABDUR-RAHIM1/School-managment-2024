@@ -4,6 +4,6 @@ const router = require("express").Router();
 
 router.get("/all", getAllReview)
 router.post("/add", addReview)
-router.delete("/delete/:id", deleteReview)
+router.post("/delete", deleteReview)
 
 module.exports = router;

@@ -111,7 +111,7 @@
   get all - http://localhost:9000/api/contact/all
   add - http://localhost:9000/api/contact/add - users
   edit - http://localhost:9000/api/contact/edit/:id
-  delete - http://localhost:9000/api/contact/delete/:id
+  delete many - http://localhost:9000/api/contact/delete (post route)
 }
  
   

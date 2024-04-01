@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 const authModel = require('../../models/auth/studentAuth.model');
+const teacherModel = require('../../models/auth/teacherAuth.model');
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
@@ -95,14 +96,14 @@ const register = async (req, res) => {
 const controllAccount = async (req, res) => {
     const { id } = req.params;
     try {
-        const isUpdate = await authModel.findByIdAndUpdate(id,
+        const isUpdate = await teacherModel.findByIdAndUpdate(id,
             {
                 $set: req.body
             },
             { new: true });
 
         if (!isUpdate) {
-            return res.status(404).json({ message: "User not found", ok: false });
+            return res.status(404).json({ message: "teacher not found", ok: false });
         }
         res.status(200).json({
             message: `has been ${isUpdate.status} successfully`,

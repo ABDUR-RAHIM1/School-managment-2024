@@ -38,9 +38,9 @@ const addReview = async (req, res) => {
 
 //  for admin
 const deleteReview = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body;
     try {
-        const isDelete = await reviewModel.findByIdAndDelete({ _id: id });
+        const isDelete = await reviewModel.deleteMany({ _id: { $in: ids } });
 
         if (isDelete) {
             res.status(200).json({
