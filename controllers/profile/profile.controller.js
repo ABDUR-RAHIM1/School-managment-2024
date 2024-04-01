@@ -3,9 +3,24 @@ const authModel = require("../../models/auth/studentAuth.model");
 const profileModel = require("../../models/profile/studentProfile.model")
 
 const getAllProfile = async (req, res) => {
+
+
+    const { search } = req.query; 
     try {
-        const profiles = await profileModel.find()
-        res.status(200).json(profiles)
+        const regex = new RegExp(search, 'i');
+        const filter = {
+            $or: [
+                { name: { $regex: regex } },
+                { classCode: { $regex: regex } },
+            ]
+        }
+        if (search) {
+            const profiles = await profileModel.find(filter)
+            res.status(200).json(profiles)
+        } else {
+            const profiles = await profileModel.find()
+            res.status(200).json(profiles)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",

@@ -9,11 +9,11 @@ const getAllAdmin = async (req, res) => {
     try {
         let admin;
         if (search) {
-             admin = await adminAuthModel.find({ role: search }).select('-password');
-          
-        }else{
-             admin = await adminAuthModel.find().select('-password');
-          
+            admin = await adminAuthModel.find({ role: search }).select('-password');
+
+        } else {
+            admin = await adminAuthModel.find().select('-password');
+
         }
 
         res.status(200).json(admin)
@@ -28,6 +28,11 @@ const getAllAdmin = async (req, res) => {
 const registerAdmin = async (req, res) => {
     const { username, email, password, role } = req.body
     try {
+        if (username.length < 5) {
+            return res.status(400).json({
+                message: 'Username is too short, minimum length is 5 characters'
+            })
+        }
         const hashPassword = bcrypt.hashSync(password, 10)
         const isEmailExist = await adminAuthModel.findOne({ email });
 
@@ -112,7 +117,7 @@ const editAdmin = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
-                message: "Updated successful", 
+                message: "Updated successful",
             })
         } else {
             res.status(200).json({
@@ -149,8 +154,24 @@ const deleteAdmin = async (req, res) => {
     }
 }
 
+const deleteManyAdmins = async (req, res) => {
+    const { ids } = req.body
+    try {
+        const isDeleted = await adminAuthModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+        } else {
+            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
 
-module.exports = { getAllAdmin, registerAdmin, loginAdmin, editAdmin, deleteAdmin }
+module.exports = { getAllAdmin, registerAdmin, loginAdmin, editAdmin, deleteAdmin, deleteManyAdmins }
 
 
 

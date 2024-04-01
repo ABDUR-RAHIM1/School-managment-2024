@@ -1,15 +1,23 @@
 const StaffModel = require("../../models/staff/staff.model")
-
 const getAllStaff = async (req, res) => {
+    const { search } = req.query;
     try {
-        const staffs = await StaffModel.find();
-        res.status(200).json(staffs)
+        let query = {};
+
+        if (search) {
+            const regEx = new RegExp(search, "i");
+            query = { username: { $regex: regEx } };
+        }
+
+        const staffs = await StaffModel.find(query);
+        res.status(200).json(staffs);
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error"
-        })
+        });
     }
 }
+
 
 
 const addStaff = async (req, res) => {
@@ -23,7 +31,7 @@ const addStaff = async (req, res) => {
         await newStaff.save();
 
         res.status(201).json({
-            message :"staff create successful"
+            message: "staff create successful"
         })
     } catch (error) {
         res.status(500).json({
@@ -39,10 +47,10 @@ const editStaff = async (req, res) => {
         const isUpdated = await StaffModel.findByIdAndUpdate({ _id: id }, {
             $set: req.body
         }, { new: true });
- 
+
         if (isUpdated) {
             res.status(200).json({
-                message: "staff has been updated", 
+                message: "staff has been updated",
             })
         } else {
             res.status(404).json({
@@ -58,18 +66,18 @@ const editStaff = async (req, res) => {
 }
 
 const deleteStaff = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await StaffModel.findByIdAndDelete({ _id: id });
-
-        if (isDelete) {
-            res.status(200).json({
-                message: "staff has been deleted"
+        if (ids.length < 0) {
+            return res.status(400).json({
+                message: "Not selected "
             })
+        }
+        const isDeleted = await StaffModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
         } else {
-            res.status(404).json({
-                message: "staff not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
         }
     } catch (error) {
         res.status(500).json({

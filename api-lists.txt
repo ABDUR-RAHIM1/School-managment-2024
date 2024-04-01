@@ -35,7 +35,7 @@
     get all - http://localhost:9000/api/staffs/all 
     add - http://localhost:9000/api/staffs/add 
     edit - http://localhost:9000/api/staffs/edit/:id 
-    delete - http://localhost:9000/api/staffs/delete/:id 
+    delete many  - http://localhost:9000/api/staffs/delete/ (post route)
 }
  
 
