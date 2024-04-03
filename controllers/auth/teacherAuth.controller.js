@@ -87,7 +87,7 @@ const registerTeacher = async (req, res) => {
 const controllTeacher = async (req, res) => {
     const { id } = req.params;
     try {
-        const isUpdate = await authModel.findByIdAndUpdate(id,
+        const isUpdate = await teacherModel.findByIdAndUpdate(id,
             {
                 $set: req.body
             },

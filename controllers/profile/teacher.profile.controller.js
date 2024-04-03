@@ -2,12 +2,11 @@ const teacherModel = require("../../models/auth/teacherAuth.model");
 const teacherProfile = require("../../models/profile/teacherProfile.model")
 
 const getAllProfiles = async (req, res) => {
-
+    const { search } = req.query;
     try {
+       
         const profile = await teacherProfile.find();
-        res.status(200).json({
-            teacherProfile: profile
-        })
+        res.status(200).json(profile)
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -19,9 +18,9 @@ const getAllProfiles = async (req, res) => {
 //  login teachers profile
 
 const getLoginTechersProfile = async (req, res) => {
-    const { userid, email } = req.user; 
+    const { userid, email } = req.user;
     try {
-        const profile = await teacherProfile.find({ userId: userid , email  });
+        const profile = await teacherProfile.find({ userId: userid, email });
         res.status(200).json({
             teacherProfile: profile
         })
@@ -64,11 +63,11 @@ const createTechersProfile = async (req, res) => {
 
         const profile = await newProfile.save();
 
-         await teacherModel.updateOne({_id:userid} , {
-            $push : {
-                profile : profile._id
+        await teacherModel.updateOne({ _id: userid }, {
+            $push: {
+                profile: profile._id
             }
-         })
+        })
 
         res.status(201).json({
             message: "Profile Create Successful",
@@ -87,21 +86,21 @@ const createTechersProfile = async (req, res) => {
 //  edit prifiles
 
 const editTechersProfile = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
-       const isEdit = await teacherProfile.findByIdAndUpdate(id , {
-         $set : req.body
-       } , {new : true} );
+        const isEdit = await teacherProfile.findByIdAndUpdate(id, {
+            $set: req.body
+        }, { new: true });
 
-       if (isEdit) {
-           res.status(200).json({
-            message : "Update successful"
-           })
-       }else{
-        res.status(200).json({
-            message : "profile not found"
-           })
-       }
+        if (isEdit) {
+            res.status(200).json({
+                message: "Update successful"
+            })
+        } else {
+            res.status(200).json({
+                message: "profile not found"
+            })
+        }
 
     } catch (error) {
         res.status(500).json({

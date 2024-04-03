@@ -96,7 +96,7 @@ const register = async (req, res) => {
 const controllAccount = async (req, res) => {
     const { id } = req.params;
     try {
-        const isUpdate = await teacherModel.findByIdAndUpdate(id,
+        const isUpdate = await authModel.findByIdAndUpdate(id,
             {
                 $set: req.body
             },
