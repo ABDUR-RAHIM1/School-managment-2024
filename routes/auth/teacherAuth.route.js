@@ -1,10 +1,11 @@
-const { getAllTeachers, registerTeacher, loginTeacher, editTeacher, deleteOneTeacher, getLoginTeacher, controllTeacher, deleteMany } = require("../../controllers/auth/teacherAuth.controller")
+const { getAllTeachers, registerTeacher, loginTeacher, editTeacher, deleteOneTeacher, getLoginTeacher, controllTeacher, deleteMany, getTeacherProfile } = require("../../controllers/auth/teacherAuth.controller")
 const checkLogin = require("../../midlewere/checkLogin")
 
 const router = require("express").Router()
 
 router.get("/auth/all", getAllTeachers)
 router.get("/auth/user", checkLogin, getLoginTeacher)
+router.get("/auth/:id/profile", getTeacherProfile)
 router.post("/auth/register", registerTeacher)
 router.put("/auth/:id/approve", controllTeacher)
 router.post("/auth/login", loginTeacher)

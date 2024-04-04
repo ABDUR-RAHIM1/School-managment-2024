@@ -46,8 +46,24 @@ const getLoginTeacher = async (req, res) => {
     }
 }
 
+// get profile all details using  id
+const getTeacherProfile = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isProfile = await teacherModel.findOne({ _id: id })
+            .populate("profile") 
+        res.send(isProfile)
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+
 const registerTeacher = async (req, res) => {
-    const { username, email, position, password } = req.body
+    const { username, email, position, password, photo } = req.body
     try {
 
         const hashPassword = bcrypt.hashSync(password, 10)
@@ -63,7 +79,8 @@ const registerTeacher = async (req, res) => {
             username,
             email,
             position,
-            password: hashPassword
+            password: hashPassword,
+            photo
         });
 
         const teacher = await newTeacher.save();
@@ -162,18 +179,18 @@ const loginTeacher = async (req, res) => {
 }
 
 
-const editTeacher = async (req, res) => {
-    const { username, email, password } = req.body;
+const editTeacher = async (req, res) => { 
     const { id } = req.params
 
     try {
         const updatedUser = await teacherModel.findByIdAndUpdate(id,
-            { username, email, password },
+            { $set: req.body },
             { new: true });
 
         if (updatedUser) {
             res.status(200).json({
-                message: "Update Successful"
+                message: "Update Successful",
+                updatedUser
             })
         } else {
             res.status(404).json({
@@ -228,4 +245,4 @@ const deleteMany = async (req, res) => {
     }
 }
 
-module.exports = { getAllTeachers, getLoginTeacher, registerTeacher, controllTeacher, loginTeacher, editTeacher, deleteOneTeacher ,deleteMany }
+module.exports = { getAllTeachers, getLoginTeacher, getTeacherProfile, registerTeacher, controllTeacher, loginTeacher, editTeacher, deleteOneTeacher, deleteMany }

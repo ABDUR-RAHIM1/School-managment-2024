@@ -2,9 +2,13 @@
 const mongoose = require("mongoose");
 
 const gallarySchema = mongoose.Schema({
-    createdBy: {
+    teacherId: {
         type: mongoose.Types.ObjectId,
-        ref: 'teacherAuth',  
+        ref: 'teacherAuth',
+        required: true
+    },
+    author: {
+        type: String,
         required: true
     },
     title: {
@@ -14,6 +18,12 @@ const gallarySchema = mongoose.Schema({
     photo: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: "panding",
+        enum: ["pending", "accept", "reject"]
     }
 }, { timestamps: true });
 

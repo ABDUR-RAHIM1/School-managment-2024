@@ -26,6 +26,9 @@ const teacherAuthSchema = mongoose.Schema({
         type: String,
         required: [true, "Position is Required"],
     },
+    photo: {
+        type: String, 
+    },
     status: {
         type: String,
         enum: ["active", "pending"],

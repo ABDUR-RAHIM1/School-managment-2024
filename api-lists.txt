@@ -215,6 +215,7 @@
 {
     get all teachers  - http://localhost:9000/api/teachers/auth/all
     get login teachers  - http://localhost:9000/api/teachers/auth/user
+    get teachers profile (id) - http://localhost:9000/api/teachers/auth/:id/profile
     register teachers  - http://localhost:9000/api/teachers/auth/register
     approve account - http://localhost:9000/api/auth/teachers/:id/approve - for admin
     login teachers  - http://localhost:9000/api/teachers/auth/login
@@ -253,6 +254,7 @@
 10 /gallary for teacher and admin
 {  
   get all -http://localhost:9000/api/gallary/all - public
+   controll - http://localhost:9000/api/gallary/660e1b045dec576cc1a4751a/controll for admin
   add -http://localhost:9000/api/gallary/add - teacher
   edit -http://localhost:9000/api/gallary/edit/:id - teacher
   delete -http://localhost:9000/api/gallary/delete/:id  - admin
