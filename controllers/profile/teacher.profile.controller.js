@@ -4,7 +4,7 @@ const teacherProfile = require("../../models/profile/teacherProfile.model")
 const getAllProfiles = async (req, res) => {
     const { search } = req.query;
     try {
-       
+
         const profile = await teacherProfile.find();
         res.status(200).json(profile)
     } catch (error) {
@@ -50,7 +50,7 @@ const createTechersProfile = async (req, res) => {
 
     try {
         const newProfile = await teacherProfile({
-            userId: userid,
+            teacherId: userid,
             name,
             email: email,
             dateOfBirth,

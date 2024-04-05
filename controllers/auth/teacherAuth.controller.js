@@ -51,7 +51,10 @@ const getTeacherProfile = async (req, res) => {
     const { id } = req.params;
     try {
         const isProfile = await teacherModel.findOne({ _id: id })
-            .populate("profile") 
+            .populate("profile")
+            .populate("posts")
+            .populate("routine")
+            .populate("gallary")
         res.send(isProfile)
     } catch (error) {
         res.status(500).json({
@@ -128,6 +131,7 @@ const controllTeacher = async (req, res) => {
 
 const loginTeacher = async (req, res) => {
     const { email, password } = req.body
+  
     try {
 
         const isEmail = await teacherModel.findOne({ email });
@@ -179,7 +183,7 @@ const loginTeacher = async (req, res) => {
 }
 
 
-const editTeacher = async (req, res) => { 
+const editTeacher = async (req, res) => {
     const { id } = req.params
 
     try {

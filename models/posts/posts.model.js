@@ -17,6 +17,9 @@ const postsSchema = mongoose.Schema({
     content: {
         type: String,
         required: true
+    },
+    photo: {
+        type: String, 
     }
 }, { timestamps: true });
 
