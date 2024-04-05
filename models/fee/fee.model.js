@@ -33,8 +33,12 @@ const feeSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 
-}, { timesstamps: true });
+}, { timestamps: true });
 
 const feeModel = mongoose.model("fee", feeSchema);
 module.exports = feeModel

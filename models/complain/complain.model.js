@@ -22,6 +22,10 @@ const complainSchema = mongoose.Schema({
         type: String,
         required: [true, "details is Required"]
     },
+    photo: {
+        type: String,
+        default: "https://img.freepik.com/free-photo/clueless-disappointed-angry-male-client-shocked-with-bad-service-spread-hands-sideways-dismay-distressed-arguing-looking-questioned-frustrated-complain-condone-someone_176420-51814.jpg?w=740"
+    },
     isCheck: {
         type: String,
         enum: ["checked", "pending"],

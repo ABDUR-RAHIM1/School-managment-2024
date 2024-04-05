@@ -30,7 +30,7 @@ const getAllComplain = async (req, res) => {
 
 // for student
 const addComplain = async (req, res) => {
-    const { subject, details } = req.body;
+    const { subject, details, photo } = req.body;
     const { userid, username, email } = req.user;
     try {
         const newComplain = await ComplinModel({
@@ -38,7 +38,8 @@ const addComplain = async (req, res) => {
             studentName: username,
             studentEmail: email,
             subject,
-            details
+            details,
+            photo
         });
 
         const complain = await newComplain.save();

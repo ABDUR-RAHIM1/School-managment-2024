@@ -153,6 +153,7 @@
 1 /  done for admin
  [  student authentication 
   {   get all login account - http://localhost:9000/api/student/auth/all - admin
+      get profile - http://localhost:9000/api/student/auth/:id/profile
       get one login account - http://localhost:9000/api/student/auth/user - student
       register account - http://localhost:9000/api/auth/student/register - student
       approve account - http://localhost:9000/api/auth/student/:id/approve - for admin

@@ -84,6 +84,11 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    scholarship: {
+        type: String,
+        required: true,
+        enum: ["yes", "no"]
+    },
     photo: {
         type: String,
         required: true

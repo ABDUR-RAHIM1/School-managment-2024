@@ -5,7 +5,7 @@ const profileModel = require("../../models/profile/studentProfile.model")
 const getAllProfile = async (req, res) => {
 
 
-    const { search } = req.query; 
+    const { search } = req.query;
     try {
         const regex = new RegExp(search, 'i');
         const filter = {
@@ -47,8 +47,7 @@ const getUserProfile = async (req, res) => {
 
 const createProfile = async (req, res) => {
     const {
-        studentId,
-        name,
+
         classCode,
         roll,
         group,
@@ -67,7 +66,8 @@ const createProfile = async (req, res) => {
         occupation,
         relationWith,
         relationContact,
-        photo
+        photo,
+        scholarship
     } = req.body;
 
     try {
@@ -99,7 +99,8 @@ const createProfile = async (req, res) => {
             occupation,
             relationWith,
             relationContact,
-            photo
+            photo,
+            scholarship
         });
 
 

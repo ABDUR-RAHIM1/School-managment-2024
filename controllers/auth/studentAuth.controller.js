@@ -35,6 +35,27 @@ const getAllAccount = async (req, res) => {
     }
 }
 
+// get profile all details using  id
+const getStudentProfile = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isProfile = await authModel.findOne({ _id: id })
+            .select("-password")
+            .populate("profile")
+            .populate("results")
+            .populate("todos")
+            .populate("complains")
+            .populate("fee")
+        res.send(isProfile)
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+
 //  get login user information for login persons
 const getLoginAccount = async (req, res) => {
     const { userid, email } = req.user;
@@ -238,4 +259,4 @@ const deleteMany = async (req, res) => {
     }
 }
 
-module.exports = { getAllAccount, getLoginAccount, register, controllAccount, login, edit, deleteOne, deleteMany }
+module.exports = { getAllAccount, getStudentProfile, getLoginAccount, register, controllAccount, login, edit, deleteOne, deleteMany }

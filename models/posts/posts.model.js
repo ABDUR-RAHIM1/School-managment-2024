@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const postsSchema = mongoose.Schema({
-    createdBy: {
+    teacherId: {
         type: mongoose.Types.ObjectId,
         ref: "teacherAuth"
     },
@@ -19,7 +19,7 @@ const postsSchema = mongoose.Schema({
         required: true
     },
     photo: {
-        type: String, 
+        type: String,
     }
 }, { timestamps: true });
 

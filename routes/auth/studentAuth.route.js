@@ -1,9 +1,10 @@
-const { getAllAccount, register, login, getLoginAccount, edit, deleteOne, controllAccount, deleteMany } = require("../../controllers/auth/studentAuth.controller")
+const { getAllAccount, register, login, getLoginAccount, edit, deleteOne, controllAccount, deleteMany, getStudentProfile } = require("../../controllers/auth/studentAuth.controller")
 const checkLogin = require("../../midlewere/checkLogin")
 
 const router = require("express").Router()
 
 router.get("/auth/all", getAllAccount)
+router.get("/auth/:id/profile", getStudentProfile)
 router.get("/auth/user", checkLogin, getLoginAccount)
 router.post("/auth/register", register)
 router.put("/auth/:id/approve", controllAccount)

@@ -19,7 +19,7 @@ const addPost = async (req, res) => {
     const { userid, username } = req.user;
     try {
         const newPost = await postModel({
-            createdBy: userid,
+            teacherId: userid,
             creator: username,
             title,
             content,
@@ -73,9 +73,9 @@ const deletePost = async (req, res) => {
     try {
         const isDelete = await postModel.findByIdAndDelete({ _id: id });
         if (isDelete) {
-            await teacherModel.updateOne({ _id: isDelete.createdBy} , {
-                $pull : {
-                    posts : isDelete._id
+            await teacherModel.updateOne({ _id: isDelete.createdBy }, {
+                $pull: {
+                    posts: isDelete._id
                 }
             })
             res.status(200).json({
