@@ -73,7 +73,7 @@ const deletePost = async (req, res) => {
     try {
         const isDelete = await postModel.findByIdAndDelete({ _id: id });
         if (isDelete) {
-            await teacherModel.updateOne({ _id: isDelete.createdBy }, {
+            await teacherModel.updateOne({ _id: isDelete.teacherId }, {
                 $pull: {
                     posts: isDelete._id
                 }
