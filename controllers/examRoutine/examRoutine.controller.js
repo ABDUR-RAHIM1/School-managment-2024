@@ -14,31 +14,40 @@ const getAllExamRoutine = async (req, res) => {
 
 
 const addExamRoutine = async (req, res) => {
-    const { classCode, subject, examTime } = req.body;
+    const { examName, classCode, subject, examDate, examTime } = req.body;
     try {
 
-        const isExist = await examRoutineModel.findOne({ classCode, examTime, subject });
+        const isExist = await examRoutineModel.findOne({ examName });
 
-        if (isExist) {
+        // const condition = isExist && isExist.examTime === examTime && isExist.subject === subject
+        const condition = false
+        if (condition) {
             return res.status(400).json({
+                ok: false,
                 message: "Routine already exists for this class and subject at the same time"
             });
+        } else {
+            const newRoutine = await examRoutineModel({
+                examName,
+                classCode,
+                subject,
+                examDate,
+                examTime
+            });
+            await newRoutine.save();
+            res.status(201).json({
+                ok: true,
+                message: 'Routine has been created successfully'
+            })
         }
 
-        const newRoutine = await examRoutineModel({
-            classCode,
-            subject,
-            examTime
-        });
-        await newRoutine.save();
-        res.status(201).json({
-            message: 'Routine has been created successfully'
-        })
+
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message
-        })
+        });
+        console.log(error)
     }
 }
 
@@ -52,10 +61,12 @@ const editExamRoutine = async (req, res) => {
 
         if (isUpdate) {
             res.status(200).json({
+                ok: true,
                 message: "routine has been updated"
             })
         } else {
-            res.status(200).json({
+            res.status(404).json({
+                ok: false,
                 message: "routine not found"
             })
         }
@@ -68,17 +79,14 @@ const editExamRoutine = async (req, res) => {
 }
 
 const deleteExamRoutine = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await examRoutineModel.findByIdAndDelete({ _id: id });
-        if (isDelete) {
-            res.status(200).json({
-                message: "routine has been Deleted"
-            })
+        const isDeleted = await examRoutineModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(200).json({
-                message: "routine not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

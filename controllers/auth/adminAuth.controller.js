@@ -30,6 +30,7 @@ const registerAdmin = async (req, res) => {
     try {
         if (username.length < 5) {
             return res.status(400).json({
+                ok: false,
                 message: 'Username is too short, minimum length is 5 characters'
             })
         }
@@ -39,7 +40,7 @@ const registerAdmin = async (req, res) => {
         if (isEmailExist) {
             return res.status(400).json({
                 message: "Email Already Exist",
-                isRegister: false
+                ok: true,
             })
         }
 
@@ -82,19 +83,19 @@ const loginAdmin = async (req, res) => {
                         username: isEmail.username,
                         email: isEmail.email
                     }, secretKey),
-                    isLogin: true
+                    ok: true
                 })
             } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
-                    isLogin: false
+                    ok: false
                 })
             }
 
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
-                isLogin: false
+                ok: false
             })
         }
 
@@ -117,10 +118,12 @@ const editAdmin = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "Updated successful",
             })
         } else {
             res.status(200).json({
+                ok: false,
                 message: "Record not found"
             })
         }
@@ -139,10 +142,12 @@ const deleteAdmin = async (req, res) => {
 
         if (isDelete) {
             res.status(200).json({
+                ok: true,
                 message: 'Delete successful'
             })
         } else {
             res.status(200).json({
+                ok: true,
                 message: 'Record not found'
             })
         }
@@ -159,9 +164,9 @@ const deleteManyAdmins = async (req, res) => {
     try {
         const isDeleted = await adminAuthModel.deleteMany({ _id: { $in: ids } })
         if (isDeleted) {
-            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

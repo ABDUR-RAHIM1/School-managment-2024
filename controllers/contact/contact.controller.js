@@ -49,10 +49,12 @@ const editContact = async (req, res) => {
         });
         if (isUpdated) {
             res.status(200).json({
+                ok : true,
                 message: 'Contact Message has been updated'
             })
         } else {
             res.status(404).json({
+                ok : false,
                 message: 'Contact Message not found'
             })
         }
@@ -71,10 +73,12 @@ const deleteContact = async (req, res) => {
         const isDeleted = await contactModel.deleteMany({ _id: { $in: ids } });
         if (isDeleted) {
             res.status(200).json({
+                ok : true,
                 message: 'Contact Message has been Deleted'
             })
         } else {
             res.status(404).json({
+                ok : false,
                 message: 'Contact Message not found'
             })
         }

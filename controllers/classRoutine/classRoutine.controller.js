@@ -116,7 +116,7 @@ const deleteRoutine = async (req, res) => {
 }
 
 const deleteManyRoutine = async (req, res) => {
-    try {
+  
         const { ids } = req.body
         try {
             const isDeleted = await classRoutineModel.deleteMany({ _id: { $in: ids } })
@@ -132,12 +132,7 @@ const deleteManyRoutine = async (req, res) => {
                 error: error.message
             })
         }
-    } catch (error) {
-        res.status(500).json({
-            message: "Internal Server Error",
-            error: error.message
-        })
-    }
+
 }
 
 module.exports = { getAllRoutine, addRoutine, editRoutine, deleteRoutine, deleteManyRoutine }

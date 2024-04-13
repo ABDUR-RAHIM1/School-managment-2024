@@ -25,6 +25,7 @@ const addReview = async (req, res) => {
 
         await newReview.save();
         res.status(201).json({
+            ok: true,
             message: "Review Done!"
         })
     } catch (error) {
@@ -44,10 +45,12 @@ const deleteReview = async (req, res) => {
 
         if (isDelete) {
             res.status(200).json({
+                ok: true,
                 message: "Review has been deleted"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "Review not found"
             })
         }
@@ -60,4 +63,4 @@ const deleteReview = async (req, res) => {
 };
 
 
-module.exports = {getAllReview , addReview , deleteReview}
+module.exports = { getAllReview, addReview, deleteReview }

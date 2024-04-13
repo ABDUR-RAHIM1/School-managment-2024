@@ -31,10 +31,12 @@ const addStaff = async (req, res) => {
         await newStaff.save();
 
         res.status(201).json({
+            ok: true,
             message: "staff create successful"
         })
     } catch (error) {
         res.status(500).json({
+            ok: false,
             message: "Internal Server Error"
         })
     }
@@ -50,10 +52,12 @@ const editStaff = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "staff has been updated",
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "staff not found"
             })
         }
@@ -70,14 +74,15 @@ const deleteStaff = async (req, res) => {
     try {
         if (ids.length < 0) {
             return res.status(400).json({
+                ok: false,
                 message: "Not selected "
             })
         }
         const isDeleted = await StaffModel.deleteMany({ _id: { $in: ids } })
         if (isDeleted) {
-            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

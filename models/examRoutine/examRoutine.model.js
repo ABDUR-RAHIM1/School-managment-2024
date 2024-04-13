@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const examRoutineSchema = mongoose.Schema({
+    examName: {
+        type: String,
+        required: true,
+        default : "final"
+    },
     classCode: {
         type: Number,
         required: true
@@ -9,8 +14,12 @@ const examRoutineSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    examTime: {
+    examDate: {
         type: Date,
+        required: true
+    },
+    examTime: {
+        type: String,
         required: true
     }
 }, { timestamps: true });
