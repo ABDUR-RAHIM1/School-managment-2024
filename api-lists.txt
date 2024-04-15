@@ -71,7 +71,7 @@
   get all - http://localhost:9000/api/notice/all 
    add - http://localhost:9000/api/notice/add 
    edit - http://localhost:9000/api/notice/edit/:id 
-   delete - http://localhost:9000/api/notice/delete/:id
+   delete - http://localhost:9000/api/notice/delete-many (post route)
  }
  
 

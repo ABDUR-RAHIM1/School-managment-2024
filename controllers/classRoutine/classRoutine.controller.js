@@ -50,11 +50,12 @@ const addRoutine = async (req, res) => {
             }
         })
         res.status(201).json({
+            ok: true,
             message: "routine add successful",
-            routine
         })
     } catch (error) {
         res.status(500).json({
+            ok: false,
             message: "Internal Server Error",
             error: error.message
         });
@@ -70,10 +71,12 @@ const editRoutine = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "routine has been updated"
             })
         } else {
             res.status(200).json({
+                ok: false,
                 message: "routine not found"
             })
         }
@@ -100,10 +103,12 @@ const deleteRoutine = async (req, res) => {
             }, { new: true })
 
             res.status(200).json({
+                ok: true,
                 message: "routine has been deleted"
             })
         } else {
             res.status(200).json({
+                ok: false,
                 message: "routine not found"
             })
         }
@@ -116,22 +121,22 @@ const deleteRoutine = async (req, res) => {
 }
 
 const deleteManyRoutine = async (req, res) => {
-  
-        const { ids } = req.body
-        try {
-            const isDeleted = await classRoutineModel.deleteMany({ _id: { $in: ids } })
-            if (isDeleted) {
 
-                res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
-            } else {
-                res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
-            }
-        } catch (error) {
-            res.status(500).json({
-                message: "Internal Server Error",
-                error: error.message
-            })
+    const { ids } = req.body
+    try {
+        const isDeleted = await classRoutineModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
+        } else {
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
 
 }
 

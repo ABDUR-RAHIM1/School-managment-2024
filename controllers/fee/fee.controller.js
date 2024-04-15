@@ -3,9 +3,23 @@ const feeModel = require("../../models/fee/fee.model");
 const profileModel = require("../../models/profile/studentProfile.model");
 
 const getAllFee = async (req, res) => {
+    const { search } = req.query;
     try {
-        const fees = await feeModel.find();
-        res.status(200).json(fees)
+
+        if (search) {
+            const regex = new RegExp(search, "i");
+            const filter = {
+                $or: [
+                    { studentName: { $regex: regex } },
+                    { classCode: { $regex: regex } }
+                ]
+            }
+            const fees = await feeModel.find(filter);
+            res.status(200).json(fees)
+        } else {
+            const fees = await feeModel.find();
+            res.status(200).json(fees)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -23,11 +37,12 @@ const addFee = async (req, res) => {
         const existingFee = await feeModel.findOne({ studentId, feeFor });
 
         if (!studentInfo) {
-            return res.status(404).json({ message: "student not found" })
+            return res.status(404).json({ ok: false, message: "student not found" })
         }
 
         if (existingFee && existingFee.feeFor === feeFor) {
             return res.status(400).json({
+                ok: false,
                 message: "Fee already exists for this student"
             })
         }
@@ -51,6 +66,7 @@ const addFee = async (req, res) => {
         })
 
         res.status(201).json({
+            ok: true,
             message: "fee added successful"
         })
     } catch (error) {
@@ -70,10 +86,12 @@ const editFee = async (req, res) => {
 
         if (isUpdate) {
             res.status(200).json({
+                ok: true,
                 message: 'Fee has been updated'
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: 'Fee not found'
             })
         }
@@ -93,10 +111,12 @@ const deleteFee = async (req, res) => {
 
         if (isDelete) {
             res.status(200).json({
+                ok: true,
                 message: "Delete successful"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "record not found"
             })
         }

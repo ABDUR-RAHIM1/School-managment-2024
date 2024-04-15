@@ -74,6 +74,7 @@ const registerTeacher = async (req, res) => {
 
         if (isEmailExist) {
             return res.status(400).json({
+                ok: false,
                 message: "Email Already Exist"
             })
         }
@@ -89,6 +90,7 @@ const registerTeacher = async (req, res) => {
         const teacher = await newTeacher.save();
 
         res.status(201).json({
+            ok: true,
             message: "Register Successfull",
             teacher
         })
@@ -131,7 +133,7 @@ const controllTeacher = async (req, res) => {
 
 const loginTeacher = async (req, res) => {
     const { email, password } = req.body
-  
+
     try {
 
         const isEmail = await teacherModel.findOne({ email });
@@ -139,8 +141,8 @@ const loginTeacher = async (req, res) => {
         if (isEmail.status !== "active") {
             return res.status(400).json(
                 {
-                    "message": "Your account has not been activated yet. Please contact with admin!",
-                    "isLogin": false
+                    message: "Your account has not been activated yet. Please contact with admin!",
+                    ok: false,
                 }
             )
         }
@@ -156,7 +158,7 @@ const loginTeacher = async (req, res) => {
                         username: isEmail.username,
                         email: isEmail.email
                     }, secretKey),
-                    isLogin: true
+                    ok: true,
                 })
             } else {
                 return res.status(404).json({
@@ -168,7 +170,7 @@ const loginTeacher = async (req, res) => {
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
-                isLogin: false
+                ok: false,
             })
         }
 
@@ -193,11 +195,13 @@ const editTeacher = async (req, res) => {
 
         if (updatedUser) {
             res.status(200).json({
+                ok: true,
                 message: "Update Successful",
                 updatedUser
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "user Not Found"
             })
         }
@@ -217,10 +221,12 @@ const deleteOneTeacher = async (req, res) => {
         const isDelete = await teacherModel.findByIdAndDelete(id)
         if (isDelete) {
             res.status(200).json({
+                ok: true,
                 message: "Delete Successfull"
             })
         } else {
             res.status(200).json({
+                ok: false,
                 message: "user not found"
             })
         }
@@ -237,9 +243,9 @@ const deleteMany = async (req, res) => {
     try {
         const isDeleted = await teacherModel.deleteMany({ _id: { $in: ids } })
         if (isDeleted) {
-            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

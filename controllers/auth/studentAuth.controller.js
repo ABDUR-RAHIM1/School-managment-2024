@@ -85,7 +85,7 @@ const register = async (req, res) => {
         if (isEmailExist) {
             return res.status(400).json({
                 message: "Email Already Exist",
-                isRegister: false
+                ok: false
             })
         }
 
@@ -100,7 +100,7 @@ const register = async (req, res) => {
         await newStudent.save();
         res.status(201).json({
             message: "Registration Successfull",
-            isRegister: true,
+            ok: true,
             newStudent
         })
     } catch (error) {
@@ -150,8 +150,8 @@ const login = async (req, res) => {
         if (isEmail.status !== "active") {
             return res.status(400).json(
                 {
-                    "message": "Your account has not been activated yet. Please contact with admin!",
-                    "isLogin": false
+                    message: "Your account has not been activated yet. Please contact with admin!",
+                    ok: false
                 }
             )
         }
@@ -179,7 +179,7 @@ const login = async (req, res) => {
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
-                isLogin: false
+                ok: true,
             })
         }
 
@@ -188,7 +188,7 @@ const login = async (req, res) => {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message,
-            isRegister: false
+            ok: false,
         })
     }
 }
@@ -204,10 +204,12 @@ const edit = async (req, res) => {
 
         if (updatedUser) {
             res.status(200).json({
+                ok: true,
                 message: "Update Successful",
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "Not Found"
             })
         }
@@ -227,10 +229,12 @@ const deleteOne = async (req, res) => {
         const isDelete = await authModel.findByIdAndDelete(id)
         if (isDelete) {
             res.status(200).json({
+                ok: true,
                 message: "Delete Successfull"
             })
         } else {
             res.status(200).json({
+                ok: false,
                 message: "user not found"
             })
         }
@@ -247,9 +251,9 @@ const deleteMany = async (req, res) => {
     try {
         const isDeleted = await authModel.deleteMany({ _id: { $in: ids } })
         if (isDeleted) {
-            res.status(200).json({ message: 'Documents deleted successfully', isDelete: true });
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({ message: 'Documents have not been deleted', isDelete: false });
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({
