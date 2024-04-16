@@ -53,7 +53,7 @@
     get all - http://localhost:9000/api/booklist/all 
     add - http://localhost:9000/api/booklist/add 
     edit - http://localhost:9000/api/booklist/edit/:id 
-    delete - http://localhost:9000/api/booklist/delete/:id 
+    delete - http://localhost:9000/api/booklist/delete-many (post route)
 }
  
 
@@ -62,7 +62,7 @@
     get all - http://localhost:9000/api/fee/all - for admin
     add - http://localhost:9000/api/fee/add   - for admin
     edit - http://localhost:9000/api/fee/edit/:id  - for admin
-    delete - http://localhost:9000/api/fee/delete/:id  - for admin
+    delete - http://localhost:9000/api/fee/delete-many - for admin (post route)
 }
  
  

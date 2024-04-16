@@ -105,22 +105,14 @@ const editFee = async (req, res) => {
 }
 
 const deleteFee = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await feeModel.findByIdAndDelete({ _id: id });
-
-        if (isDelete) {
-            res.status(200).json({
-                ok: true,
-                message: "Delete successful"
-            })
+        const isDeleted = await feeModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                ok: false,
-                message: "record not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
-
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",

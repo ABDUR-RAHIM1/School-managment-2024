@@ -5,7 +5,7 @@ const router = require("express").Router();
 router.get("/all", getAllFee)
 router.post("/add", addFee)
 router.put("/edit/:id", editFee)
-router.delete("/delete/:id", deleteFee)
+router.post("/delete-many", deleteFee)
 
 
 module.exports = router;

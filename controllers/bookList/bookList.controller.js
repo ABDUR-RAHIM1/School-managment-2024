@@ -1,9 +1,23 @@
 const bookListModel = require("../../models/bookList/bookList.model")
 
 const getAllBookLists = async (req, res) => {
+    const { search } = req.query;
+
     try {
-        const bookLists = await bookListModel.find();
-        res.status(200).json(bookLists)
+        if (search) {
+            const regex = new RegExp(search, "i");
+            const filter = {
+                $or: [
+                    { group: { $regex: regex } },
+                    { classCode: { $regex: regex } }
+                ]
+            }
+            const bookLists = await bookListModel.find(filter);
+            res.status(200).json(bookLists)
+        } else {
+            const bookLists = await bookListModel.find();
+            res.status(200).json(bookLists)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -20,6 +34,7 @@ const addBookList = async (req, res) => {
 
         if (isExist) {
             return res.status(400).json({
+                ok: false,
                 message: "Booklist have already Exist!"
             })
         }
@@ -33,6 +48,7 @@ const addBookList = async (req, res) => {
 
         await newList.save();
         res.status(201).json({
+            ok: true,
             message: "booklist added"
         })
     } catch (error) {
@@ -51,10 +67,12 @@ const editBookLists = async (req, res) => {
         }, { new: true });
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "Booklist has been updated!"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "Booklist not found!"
             })
         }
@@ -67,17 +85,13 @@ const editBookLists = async (req, res) => {
 }
 
 const deleteBookLists = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await bookListModel.findByIdAndDelete({ _id: id });
-        if (isDelete) {
-            res.status(200).json({
-                message: "Booklist has been Deleted!"
-            })
+        const isDeleted = await bookListModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                message: "Booklist not found!"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

@@ -5,6 +5,6 @@ const router = require("express").Router();
 router.get("/all", getAllBookLists)
 router.post("/add", addBookList)
 router.put("/edit/:id", editBookLists)
-router.delete("/delete/:id", deleteBookLists)
+router.post("/delete-many", deleteBookLists)
 
 module.exports = router;
