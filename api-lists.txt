@@ -17,7 +17,7 @@
     get all - http://localhost:9000/api/results/all 
     add - http://localhost:9000/api/results/add 
     edit - http://localhost:9000/api/results/edit/:id 
-    delete - http://localhost:9000/api/results/delete/:id
+    delete-many - http://localhost:9000/api/results/delete-many (post route)
  }
  
 3 / classRoutine done

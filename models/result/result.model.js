@@ -6,6 +6,12 @@ const resultSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "studentAuth"
     },
+
+    year: {
+        type: String,
+        required: true
+    },
+
     studentName: {
         type: String,
         required: [true, "student Name is required"]

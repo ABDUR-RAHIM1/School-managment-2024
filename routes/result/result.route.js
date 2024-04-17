@@ -8,6 +8,6 @@ const router = require("express").Router();
 router.get("/all", getAllResult)
 router.post("/add", addResult)
 router.put("/edit/:id", editResult)
-router.delete("/delete/:id", deleteResult)
+router.post("/delete-many", deleteResult)
 
 module.exports = router
