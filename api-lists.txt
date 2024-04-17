@@ -44,7 +44,7 @@
   get all - http://localhost:9000/api/comitee/all 
   add - http://localhost:9000/api/comitee/add 
   edit - http://localhost:9000/api/comitee/edit/:id 
-  delete - http://localhost:9000/api/comitee/delete/:id 
+  delete many - http://localhost:9000/api/comitee/delete-many (post route)
 }
  
 

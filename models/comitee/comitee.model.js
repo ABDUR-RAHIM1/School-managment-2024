@@ -12,6 +12,10 @@ const comiteeSchema = mongoose.Schema({
         required: true,
         lowercase: true,
     },
+    phone: {
+        type: Number,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -19,7 +23,7 @@ const comiteeSchema = mongoose.Schema({
     },
     position: {
         type: String,
-        required: true, 
+        required: true,
         minLength: [5, "Position Is Required"]
     },
     photo: {

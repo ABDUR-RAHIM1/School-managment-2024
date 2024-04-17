@@ -5,6 +5,6 @@ const router = require('express').Router();
 router.get("/all", getALlComitee)
 router.post("/add", addComitee)
 router.put("/edit/:id", editComitee)
-router.delete("/delete/:id", deleteComitee)
+router.post("/delete-many", deleteComitee)
 
 module.exports = router
