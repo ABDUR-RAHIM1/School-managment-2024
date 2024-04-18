@@ -2,8 +2,7 @@
 const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
-const authModel = require('../../models/auth/studentAuth.model');
-const teacherModel = require('../../models/auth/teacherAuth.model');
+const authModel = require('../../models/auth/studentAuth.model'); 
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
@@ -42,6 +41,7 @@ const getStudentProfile = async (req, res) => {
         const isProfile = await authModel.findOne({ _id: id })
             .select("-password")
             .populate("profile")
+            .populate("attendance")
             .populate("results")
             .populate("todos")
             .populate("complains")

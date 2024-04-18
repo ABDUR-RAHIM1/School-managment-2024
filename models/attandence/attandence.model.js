@@ -7,11 +7,23 @@ const attendanceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    studentName: {
+        type: String,
+        required: true
+    },
     classCode: {
         type: String,
         required: true
     },
-    date: {
+    group: {
+        type: String,
+        required: true
+    },
+    roll: {
+        type: String,
+        required: true
+    },
+    dateByday: {
         type: Date,
         required: true
     },
@@ -20,9 +32,9 @@ const attendanceSchema = new mongoose.Schema({
         enum: ['Present', 'Absent', "Late"],
         required: true
     },
-    createdAt : {
-        type : Date,
-        default : Date.now
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -1,4 +1,6 @@
 const Attendance = require("../../models/attandence/attandence.model");
+const authModel = require("../../models/auth/studentAuth.model");
+const profileModel = require("../../models/profile/studentProfile.model");
 
 // this for admin and modarator
 const getAllAttendence = async (req, res) => {
@@ -28,29 +30,56 @@ const getLoginStudentsAttendance = async (req, res) => {
 }
 
 const addAttendence = async (req, res) => {
-    const attendanceData = req.body;
 
-    const attendances = attendanceData.map(attendance => ({
-        studentId: attendance.studentId,
-        classCode: attendance.classCode,
-        date: attendance.date,
-        status: attendance.status
-    }));
+    const { studentId, dateByday, status } = req.body
     try {
-        const existingAttendance = await Attendance.find({ studentId: req.body.map(ad => ad.studentId), date: req.body.map(ad => ad.date) });
 
-        if (existingAttendance.length > 0) {
-            return res.status(400).json({ message: "Attendance records already exist for the student on this date" });
-        } else {
-            const attendance = await Attendance.insertMany(attendances);
+        const student = await profileModel.findOne({ studentId });
 
-            return res.status(201).json({ message: "Attendance records created successfully", attendance });
+  
+        const isExist = await Attendance.findOne({ studentId });
+
+        if (isExist) {
+            const isExistDate = new Date(isExist.dateByday);
+            const currentDate = new Date(dateByday);
+           
+            if (isExistDate.toISOString() === currentDate.toISOString()) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "Already Submitted!"
+                });
+            }
+
         }
+        ;
+        const newAttendance = await Attendance({
+            studentId,
+            studentName: student.name,
+            classCode: student.classCode,
+            group: student.group,
+            roll: student.roll,
+            dateByday,
+            status
+        });
+
+        const attendance = await newAttendance.save();
+        await authModel.updateOne({ _id: studentId }, {
+            $push: {
+                attendance: attendance._id
+            }
+        }, { new: true })
+        res.status(201).json({
+            ok: true,
+            message: "attendance submited"
+        })
+
+
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         });
+        console.log(error)
     }
 };
 

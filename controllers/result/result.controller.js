@@ -5,9 +5,23 @@ const ResutlsModel = require("../../models/result/result.model");
 
 //  for admin 
 const getAllResult = async (req, res) => {
+    const { search } = req.query;
+ 
     try {
-        const results = await ResutlsModel.find();
-        res.status(200).json(results)
+        if (search) {
+            const regex = new RegExp(search, "i");
+            const filter = {
+                $or: [
+                    { studentName: { $regex: regex } },
+                    { classCode: { $regex: regex } },
+                ]
+            }
+            const results = await ResutlsModel.find(filter);
+            res.status(200).json(results)
+        } else {
+            const results = await ResutlsModel.find();
+            res.status(200).json(results)
+        }
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
@@ -18,16 +32,16 @@ const getAllResult = async (req, res) => {
 
 const addResult = async (req, res) => {
     const { studentId, year, examName, subjects, marks } = req.body;
-     
+
     try {
         const isExist = await ResutlsModel.findOne({ studentId });
-      
+
         if (isExist && isExist.year === String(year) && isExist.examName === examName) {
-           res.status(400).json({
-            message : "Already Published !"
-           })
-           return ;
-        } 
+            res.status(400).json({
+                message: "Already Published !"
+            })
+            return;
+        }
         const studentInfo = await profileModel.findOne({ studentId });
 
         const newResutls = await ResutlsModel({

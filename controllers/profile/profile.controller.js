@@ -12,6 +12,7 @@ const getAllProfile = async (req, res) => {
             $or: [
                 { name: { $regex: regex } },
                 { classCode: { $regex: regex } },
+                { group: { $regex: regex } },
             ]
         }
         if (search) {

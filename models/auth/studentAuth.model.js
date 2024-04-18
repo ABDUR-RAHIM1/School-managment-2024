@@ -29,12 +29,17 @@ const studentAuthSchema = mongoose.Schema({
     },
     photo: {
         type: String,
-        default: "photo"
     },
     profile: [
         {
             type: mongoose.Types.ObjectId,
             ref: "Profile"
+        }
+    ],
+    attendance: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Attendance"
         }
     ],
     results: [
