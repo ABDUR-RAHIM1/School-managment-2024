@@ -4,9 +4,19 @@ const profileModel = require("../../models/profile/studentProfile.model");
 
 // this for admin and modarator
 const getAllAttendence = async (req, res) => {
+    const { search } = req.query;
+
     try {
-        const attendance = await Attendance.find()
-        res.status(200).json(attendance)
+        if (search) {
+            const regex = new RegExp(search, "i");
+            const filter = { classCode: { $regex: regex } }
+
+            const attendance = await Attendance.find(filter)
+            res.status(200).json(attendance)
+        } else {
+            const attendance = await Attendance.find()
+            res.status(200).json(attendance)
+        }
     } catch (error) {
         res.status(200).json({
             message: "Internal Server Error",
@@ -34,15 +44,12 @@ const addAttendence = async (req, res) => {
     const { studentId, dateByday, status } = req.body
     try {
 
-        const student = await profileModel.findOne({ studentId });
-
-  
         const isExist = await Attendance.findOne({ studentId });
 
         if (isExist) {
             const isExistDate = new Date(isExist.dateByday);
             const currentDate = new Date(dateByday);
-           
+
             if (isExistDate.toISOString() === currentDate.toISOString()) {
                 return res.status(400).json({
                     ok: false,
@@ -50,8 +57,11 @@ const addAttendence = async (req, res) => {
                 });
             }
 
-        }
-        ;
+        };
+
+
+        const student = await profileModel.findOne({ studentId });
+
         const newAttendance = await Attendance({
             studentId,
             studentName: student.name,
@@ -91,10 +101,12 @@ const editAttendence = async (req, res) => {
         }, { new: true })
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "Updated Successful"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "Attendance not found"
             })
         }
@@ -107,20 +119,16 @@ const editAttendence = async (req, res) => {
 }
 
 const deleteAttendence = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await Attendance.findOneAndDelete({ _id: id });
-        if (isDelete) {
-            res.status(200).json({
-                message: "Delete successful"
-            })
+        const isDeleted = await Attendance.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                message: "Record Not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
-        res.status(200).json({
+        res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         })

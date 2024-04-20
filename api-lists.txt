@@ -180,7 +180,7 @@
       get  login st - http://localhost:9000/api/attendence/login-student
       add all - http://localhost:9000/api/attendence/create
       edit   - http://localhost:9000/api/attendence/edit/:id
-      delete   - http://localhost:9000/api/attendence/delete/:id
+      delete-many   - http://localhost:9000/api/attendence/delete-many (post route)
 }
     
 
@@ -239,7 +239,7 @@
     get login teacher att - http://localhost:9000/api/attendence/teacher/login-teacher
     add att - http://localhost:9000/api/attendence/teacher/add
     edit - http://localhost:9000/api/attendence/teacher/edit/:id
-    delete - http://localhost:9000/api/attendence/teacher/delete/:id
+    delete -many  - http://localhost:9000/api/attendence/teacher/delete-many (post route)
 }
 
 4 / post for teacher 

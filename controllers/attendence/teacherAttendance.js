@@ -1,10 +1,23 @@
-const TeahcerAttendance = require("../../models/attandence/teacherAttendence")
+const TeahcerAttendance = require("../../models/attandence/teacherAttendence");
+const teacherModel = require("../../models/auth/teacherAuth.model");
+const teacherProfile = require("../../models/profile/teacherProfile.model");
 
 //  get all for admin
 const getAllTeahcerAttandance = async (req, res) => {
+    const { search } = req.query;
     try {
-        const teacherAt = await TeahcerAttendance.find();
-        res.status(200).json(teacherAt)
+        if (search) {
+            const regex = new RegExp(search, "i");
+            const filter = {
+                teacherName: { $regex: regex }
+            }
+            const teacherAt = await TeahcerAttendance.find(filter);
+            res.status(200).json(teacherAt)
+        } else {
+            const teacherAt = await TeahcerAttendance.find();
+            res.status(200).json(teacherAt)
+        }
+
     } catch (error) {
         res.status(500).json({
             message: "Internal server error"
@@ -14,7 +27,7 @@ const getAllTeahcerAttandance = async (req, res) => {
 
 //  get for teacher  
 const getloginTeahcerAttandance = async (req, res) => {
-    const { userid } = req.user; 
+    const { userid } = req.user;
     try {
         const attendance = await TeahcerAttendance.find({ teacherId: userid })
         res.status(200).json(attendance)
@@ -28,36 +41,54 @@ const getloginTeahcerAttandance = async (req, res) => {
 
 //  add for admin
 const addTeahcerAttandance = async (req, res) => {
-    const attendanceData = req.body;
+    const { teacherId, dateByday, status } = req.body
 
-    const attendances = attendanceData.map(attendance => ({
-        teacherId: attendance.teacherId,
-        email: attendance.email,
-        date: attendance.date,
-        status: attendance.status
-    }));
     try {
-        const existingAttendance = await TeahcerAttendance.find({ teacherId: req.body.map(ad => ad.teacherId), date: req.body.map(ad => ad.date) });
+
+        const isExist = await TeahcerAttendance.findOne({ teacherId });
+
+        if (isExist) {
+            const isExistDate = new Date(isExist.dateByday);
+            const currentDate = new Date(dateByday);
+
+            if (isExistDate.toISOString() === currentDate.toISOString()) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "Already Submitted!"
+                });
+            }
+
+        };
 
 
+        const teacher = await teacherProfile.findOne({ teacherId });
 
-        if (existingAttendance.length > 0) {
-            return res.status(400).json({ message: "Attendance records already exist for the Teacher on this date" });
-        } else {
+        const newAttendance = await TeahcerAttendance({
+            teacherId,
+            teacherName: teacher.name,
+            email: teacher.email,
+            dateByday,
+            status
+        });
 
-            const newAttendances = await TeahcerAttendance.insertMany(attendances)
-            res.status(201).json({
-                message: "Teacher attendance created successfully",
-                attendances: newAttendances
-            });
-        }
+        const attendance = await newAttendance.save();
+        await teacherModel.updateOne({ _id: teacherId }, {
+            $push: {
+                attendance: attendance._id
+            }
+        }, { new: true })
+        res.status(201).json({
+            ok: true,
+            message: "attendance submited"
+        })
 
 
     } catch (error) {
         res.status(500).json({
-            message: "Internal server error",
+            message: "Internal Server Error",
             error: error.message
-        })
+        });
+        console.log(error)
     }
 }
 
@@ -70,10 +101,12 @@ const editTeahcerAttandance = async (req, res) => {
         }, { new: true })
         if (isUpdated) {
             res.status(200).json({
+                ok: true,
                 message: "Updated Successful"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "Attendance not found"
             })
         }
@@ -86,20 +119,16 @@ const editTeahcerAttandance = async (req, res) => {
 }
 //  delete for admin
 const deleteTeahcerAttandance = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await TeahcerAttendance.findOneAndDelete({ _id: id });
-        if (isDelete) {
-            res.status(200).json({
-                message: "Delete successful"
-            })
+        const isDeleted = await TeahcerAttendance.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                message: "Record Not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
-        res.status(200).json({
+        res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         })

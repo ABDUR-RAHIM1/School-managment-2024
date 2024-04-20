@@ -7,6 +7,6 @@ router.get("/all", getAllTeahcerAttandance)
 router.get("/login-teacher", checkLogin, getloginTeahcerAttandance)
 router.post("/add", addTeahcerAttandance)
 router.put("/edit/:id", editTeahcerAttandance)
-router.delete("/delete/:id", deleteTeahcerAttandance)
+router.post("/delete-many", deleteTeahcerAttandance)
 
 module.exports = router;

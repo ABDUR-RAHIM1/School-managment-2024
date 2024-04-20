@@ -5,8 +5,18 @@ const getAllProfiles = async (req, res) => {
     const { search } = req.query;
     try {
 
-        const profile = await teacherProfile.find();
-        res.status(200).json(profile)
+        if (search) {
+            const regex = new RegExp(search, "i")
+            const filter = {
+                name: { $regex: regex }
+            }
+            const profile = await teacherProfile.find(filter);
+            res.status(200).json(profile)
+        } else {
+            const profile = await teacherProfile.find();
+            res.status(200).json(profile)
+        }
+
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",

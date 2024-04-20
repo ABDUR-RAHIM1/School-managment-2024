@@ -52,6 +52,7 @@ const getTeacherProfile = async (req, res) => {
     try {
         const isProfile = await teacherModel.findOne({ _id: id })
             .populate("profile")
+            .populate("attendance")
             .populate("posts")
             .populate("routine")
             .populate("gallary")

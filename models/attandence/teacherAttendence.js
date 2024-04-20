@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 
 // Schema for attendance
 const teacherAttendanceSchema = new mongoose.Schema({
-    teacherId: { 
+    teacherId: {
+        type: String,
+        required: true
+    },
+    teacherName: {
         type: String,
         required: true
     },
@@ -11,7 +15,7 @@ const teacherAttendanceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
+    dateByday: {
         type: Date,
         required: true
     },

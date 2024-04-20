@@ -27,7 +27,7 @@ const teacherAuthSchema = mongoose.Schema({
         required: [true, "Position is Required"],
     },
     photo: {
-        type: String, 
+        type: String,
     },
     status: {
         type: String,
@@ -38,6 +38,12 @@ const teacherAuthSchema = mongoose.Schema({
         {
             type: mongoose.Types.ObjectId,
             ref: "TeacherProfile"
+        }
+    ],
+    attendance: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "TeacherAttendance"
         }
     ],
     routine: [

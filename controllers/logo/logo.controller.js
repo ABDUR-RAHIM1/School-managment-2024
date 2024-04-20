@@ -13,18 +13,19 @@ const getAllLogo = async (req, res) => {
 }
 
 const addLogo = async (req, res) => {
-    const { width, height, rounded, photo } = req.body;
+    const { width, height, radius, photo } = req.body;
     try {
         const newLogo = await logoModel({
             width,
             height,
-            rounded,
+            radius,
             photo
         });
 
         await newLogo.save();
 
         res.status(201).json({
+            ok : true,
             message: "logo has been uploaded"
         })
     } catch (error) {
@@ -44,10 +45,12 @@ const editLogo = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
+                ok : true,
                 message: "logo has been Updated"
             })
         } else {
             res.status(404).json({
+                ok : false,
                 message: "logo not found"
             })
         }
@@ -68,10 +71,12 @@ const deletLogo = async (req, res) => {
 
         if (isDeleted) {
             res.status(200).json({
+                ok : true,
                 message: "logo has been Deleted"
             })
         } else {
             res.status(404).json({
+                ok : false,
                 message: "logo not found"
             })
         }

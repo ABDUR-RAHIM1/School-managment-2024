@@ -3,12 +3,15 @@ const mongoose = require("mongoose");
 const logoSchema = mongoose.Schema({
     width: {
         type: Number,
+        required: true
     },
     height: {
         type: Number,
+        required: true
     },
-    rounded: {
+    radius: {
         type: Number,
+        required: true
     },
     photo: {
         type: String,

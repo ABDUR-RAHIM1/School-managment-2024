@@ -7,7 +7,7 @@ router.get("/all", getAllAttendence)
 router.get("/login-student" , checkLogin , getLoginStudentsAttendance)
 router.post("/create", addAttendence)
 router.put("/edit/:id", editAttendence)
-router.delete("/delete/:id", deleteAttendence)
+router.post("/delete-many", deleteAttendence)
 
 
 
