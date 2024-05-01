@@ -18,14 +18,7 @@ const teacherAuthSchema = mongoose.Schema({
         minlength: [8, "password is Minimum 8 character"],
         required: [true, "Password is required"],
     },
-    role: {
-        type: String,
-        default: "teacher"
-    },
-    position: {
-        type: String,
-        required: [true, "Position is Required"],
-    },
+  
     photo: {
         type: String,
     },

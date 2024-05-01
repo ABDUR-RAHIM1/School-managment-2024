@@ -23,6 +23,7 @@ const addAbout = async (req, res) => {
 
         await newAbout.save();
         res.status(201).json({
+            ok: true,
             message: "about Pages Content Uploaded"
         })
     } catch (error) {
@@ -42,10 +43,12 @@ const editAbout = async (req, res) => {
 
         if (isUpdate) {
             res.status(200).json({
+                ok: true,
                 message: "About pages content has been updated"
             })
         } else {
             res.status(404).json({
+                ok: false,
                 message: "About pages content not found"
             })
         }
@@ -58,18 +61,13 @@ const editAbout = async (req, res) => {
 }
 
 const deleteAbout = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await aboutModel.findByIdAndDelete({ _id: id });
-
-        if (isDelete) {
-            res.status(200).json({
-                message: "About pages content has been Deleted"
-            })
+        const isDeleted = await aboutModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                message: "About pages not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({

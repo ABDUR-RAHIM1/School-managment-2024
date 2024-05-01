@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const jwtToken = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
-const authModel = require('../../models/auth/studentAuth.model'); 
+const authModel = require('../../models/auth/studentAuth.model');
 
 // this route only for admin 
 const getAllAccount = async (req, res) => {
@@ -77,7 +77,7 @@ const getLoginAccount = async (req, res) => {
 
 
 const register = async (req, res) => {
-    const { username, email, password, role, photo } = req.body
+    const { username, email, password, photo } = req.body
     try {
         const hashPassword = bcrypt.hashSync(password, 10)
         const isEmailExist = await authModel.findOne({ email });
@@ -93,7 +93,6 @@ const register = async (req, res) => {
             username,
             email,
             password: hashPassword,
-            role,
             photo
         });
         await newStudent.validate();
@@ -101,7 +100,6 @@ const register = async (req, res) => {
         res.status(201).json({
             message: "Registration Successfull",
             ok: true,
-            newStudent
         })
     } catch (error) {
         res.status(500).json({
@@ -147,16 +145,17 @@ const login = async (req, res) => {
 
         const isEmail = await authModel.findOne({ email });
 
-        if (isEmail.status !== "active") {
-            return res.status(400).json(
-                {
-                    message: "Your account has not been activated yet. Please contact with admin!",
-                    ok: false
-                }
-            )
-        }
+
 
         if (isEmail) {
+            if (isEmail.status !== "active") {
+                return res.status(400).json(
+                    {
+                        message: "Your account has not been activated yet. Please contact with admin!",
+                        ok: false
+                    }
+                )
+            }
             const isPassword = bcrypt.compareSync(password, isEmail.password);
 
             if (isPassword) {
@@ -167,19 +166,19 @@ const login = async (req, res) => {
                         username: isEmail.username,
                         email: isEmail.email
                     }, secretKey),
-                    isLogin: true
+                    ok: true
                 })
             } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
-                    isLogin: false
+                    ok: false
                 })
             }
 
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
-                ok: true,
+                ok: false,
             })
         }
 

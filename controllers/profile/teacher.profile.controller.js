@@ -46,7 +46,7 @@ const getLoginTechersProfile = async (req, res) => {
 
 const createTechersProfile = async (req, res) => {
 
-    const { name, dateOfBirth, gender, qualification, experience, subjects, photo } = req.body;
+    const { name, dateOfBirth, gender, qualification, position, experience, subjects, photo } = req.body;
 
     const { userid, email } = req.user;
 
@@ -58,6 +58,12 @@ const createTechersProfile = async (req, res) => {
         })
     }
 
+    if (isExistProfile.position === "principle") {
+        return res.status(400).json({
+            message: "Principle profile already is here ! "
+        })
+    }
+
     try {
         const newProfile = await teacherProfile({
             teacherId: userid,
@@ -66,6 +72,7 @@ const createTechersProfile = async (req, res) => {
             dateOfBirth,
             gender,
             qualification,
+            position,
             experience,
             subjects,
             photo

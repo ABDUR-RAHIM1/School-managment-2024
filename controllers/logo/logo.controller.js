@@ -25,7 +25,7 @@ const addLogo = async (req, res) => {
         await newLogo.save();
 
         res.status(201).json({
-            ok : true,
+            ok: true,
             message: "logo has been uploaded"
         })
     } catch (error) {
@@ -45,12 +45,12 @@ const editLogo = async (req, res) => {
 
         if (isUpdated) {
             res.status(200).json({
-                ok : true,
+                ok: true,
                 message: "logo has been Updated"
             })
         } else {
             res.status(404).json({
-                ok : false,
+                ok: false,
                 message: "logo not found"
             })
         }
@@ -65,29 +65,21 @@ const editLogo = async (req, res) => {
 
 
 const deletLogo = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDeleted = await logoModel.findByIdAndDelete({ _id: id });
-
+        const isDeleted = await logoModel.deleteMany({ _id: { $in: ids } })
         if (isDeleted) {
-            res.status(200).json({
-                ok : true,
-                message: "logo has been Deleted"
-            })
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                ok : false,
-                message: "logo not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
-
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
-            error: error
+            error: error.message
         })
     }
 };
 
 
-module.exports = {getAllLogo , addLogo , editLogo ,deletLogo}
+module.exports = { getAllLogo, addLogo, editLogo, deletLogo }

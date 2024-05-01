@@ -21,6 +21,7 @@ const addSlider = async (req, res) => {
 
         await newSlider.save();
         res.status(201).json({
+            ok:true,
             message: "Slider has been added"
         })
 
@@ -39,10 +40,12 @@ const deleteSlider = async (req, res) => {
 
         if (isDelete) {
             res.status(200).json({
+                ok:true,
                 message: "slider has been deleted"
             })
         } else {
             res.status(404).json({
+                ok:false,
                 message: "slider not found"
             })
         }

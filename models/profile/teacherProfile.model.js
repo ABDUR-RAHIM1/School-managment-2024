@@ -27,6 +27,12 @@ const teacherProfileSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    position: {
+        type: String,
+        required: true,
+        enum: ["principle", "assistent teacher"],
+        default: "assistent teacher"
+    },
     experience: {
         type: Number,
         required: true

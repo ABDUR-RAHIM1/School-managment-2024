@@ -1,6 +1,6 @@
 const headlineModel = require("../../models/headline/headline.model");
 
- 
+
 const getAllHeadline = async (req, res) => {
     try {
         const headline = await headlineModel.find();
@@ -14,14 +14,16 @@ const getAllHeadline = async (req, res) => {
 }
 
 const addHeadline = async (req, res) => {
-    const { text } = req.body;
+    const { title, text } = req.body;
     try {
         const newHeadline = await headlineModel({
+            title,
             text
         });
 
         await newHeadline.save();
         res.status(201).json({
+            ok: true,
             message: "Headline has been added"
         })
 
@@ -34,18 +36,13 @@ const addHeadline = async (req, res) => {
 }
 
 const deleteHeadline = async (req, res) => {
-    const { id } = req.params;
+    const { ids } = req.body
     try {
-        const isDelete = await headlineModel.findByIdAndDelete({ _id: id });
-
-        if (isDelete) {
-            res.status(200).json({
-                message: "headline has been deleted"
-            })
+        const isDeleted = await headlineModel.deleteMany({ _id: { $in: ids } })
+        if (isDeleted) {
+            res.status(200).json({ message: 'Documents deleted successfully', ok: true });
         } else {
-            res.status(404).json({
-                message: "headline not found"
-            })
+            res.status(404).json({ message: 'Documents have not been deleted', ok: false });
         }
     } catch (error) {
         res.status(500).json({
@@ -56,4 +53,4 @@ const deleteHeadline = async (req, res) => {
 };
 
 
-module.exports = {getAllHeadline , addHeadline , deleteHeadline}
+module.exports = { getAllHeadline, addHeadline, deleteHeadline }

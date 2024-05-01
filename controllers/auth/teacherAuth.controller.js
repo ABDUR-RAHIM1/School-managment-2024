@@ -67,7 +67,7 @@ const getTeacherProfile = async (req, res) => {
 
 
 const registerTeacher = async (req, res) => {
-    const { username, email, position, password, photo } = req.body
+    const { username, email, password, photo } = req.body
     try {
 
         const hashPassword = bcrypt.hashSync(password, 10)
@@ -83,7 +83,6 @@ const registerTeacher = async (req, res) => {
         const newTeacher = await teacherModel({
             username,
             email,
-            position,
             password: hashPassword,
             photo
         });
@@ -139,21 +138,26 @@ const loginTeacher = async (req, res) => {
 
         const isEmail = await teacherModel.findOne({ email });
 
-        if (isEmail.status !== "active") {
-            return res.status(400).json(
-                {
-                    message: "Your account has not been activated yet. Please contact with admin!",
-                    ok: false,
-                }
-            )
-        }
+
 
         if (isEmail) {
+
+
+            if (isEmail.status !== "active") {
+                return res.status(400).json(
+                    {
+                        message: "Your account has not been activated yet. Please contact with admin!",
+                        ok: false,
+                    }
+                )
+            }
+
+
             const isPassword = bcrypt.compareSync(password, isEmail.password);
 
             if (isPassword) {
-                res.status(200).json({
-                    message: "Login Successful",
+                res.status(200).json({ 
+                    message: "Login Successful ",
                     token: jwtToken({
                         userid: isEmail._id,
                         username: isEmail.username,
@@ -180,8 +184,8 @@ const loginTeacher = async (req, res) => {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message,
-            isRegister: false
-        })
+            isLogin: false
+        })  
     }
 }
 
