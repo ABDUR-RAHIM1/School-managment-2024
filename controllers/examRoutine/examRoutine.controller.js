@@ -14,7 +14,7 @@ const getAllExamRoutine = async (req, res) => {
 
 
 const addExamRoutine = async (req, res) => {
-    const { examName, classCode, subject, examDate, examTime } = req.body;
+    const { examName, classCode, subject, examDate, examTime, examDuration } = req.body;
     try {
 
         const isExist = await examRoutineModel.findOne({ examName });
@@ -32,7 +32,8 @@ const addExamRoutine = async (req, res) => {
                 classCode,
                 subject,
                 examDate,
-                examTime
+                examTime,
+                examDuration
             });
             await newRoutine.save();
             res.status(201).json({

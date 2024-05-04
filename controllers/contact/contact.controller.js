@@ -30,10 +30,12 @@ const addContact = async (req, res) => {
 
         await newContact.save();
         res.status(201).json({
-            messgae: "Message has been submited"
+            ok: true,
+            message: "Message has been submited"
         })
     } catch (error) {
         res.status(500).json({
+            ok: false,
             message: "Internal Server Error",
             error: error.message
         })
@@ -49,12 +51,12 @@ const editContact = async (req, res) => {
         });
         if (isUpdated) {
             res.status(200).json({
-                ok : true,
+                ok: true,
                 message: 'Contact Message has been updated'
             })
         } else {
             res.status(404).json({
-                ok : false,
+                ok: false,
                 message: 'Contact Message not found'
             })
         }
@@ -73,12 +75,12 @@ const deleteContact = async (req, res) => {
         const isDeleted = await contactModel.deleteMany({ _id: { $in: ids } });
         if (isDeleted) {
             res.status(200).json({
-                ok : true,
+                ok: true,
                 message: 'Contact Message has been Deleted'
             })
         } else {
             res.status(404).json({
-                ok : false,
+                ok: false,
                 message: 'Contact Message not found'
             })
         }

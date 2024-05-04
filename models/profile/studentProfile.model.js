@@ -94,7 +94,7 @@ const profileSchema = mongoose.Schema({
         required: true
     },
 
-});
+}, { timestamps: true });
 
 
 const profileModel = mongoose.model("Profile", profileSchema);

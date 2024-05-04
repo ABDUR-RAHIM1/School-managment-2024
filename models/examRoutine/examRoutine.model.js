@@ -4,10 +4,10 @@ const examRoutineSchema = mongoose.Schema({
     examName: {
         type: String,
         required: true,
-        default : "final"
+        default: "final"
     },
     classCode: {
-        type: Number,
+        type: String,
         required: true
     },
     subject: {
@@ -21,7 +21,11 @@ const examRoutineSchema = mongoose.Schema({
     examTime: {
         type: String,
         required: true
-    }
+    },
+    examDuration: {
+        type: String,
+        required: true
+    },
 }, { timestamps: true });
 
 
