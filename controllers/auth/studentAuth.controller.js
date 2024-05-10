@@ -59,19 +59,23 @@ const getStudentProfile = async (req, res) => {
 //  get login user information for login persons
 const getLoginAccount = async (req, res) => {
     const { userid, email } = req.user;
+    
     try {
         const allStudent = await authModel.find({ _id: userid, email })
             .populate("profile")
             .populate("results")
             .populate("todos")
+            .populate("attendance")
             .populate("complains")
             .populate("fee")
         res.status(200).json(allStudent)
+
     } catch (error) {
         res.status(500).json({
-            message: "Internal Server Error",
+            message: "Internal Server Error 2",
             error: error.message
         })
+        console.log(error)
     }
 }
 

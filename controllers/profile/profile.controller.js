@@ -34,6 +34,7 @@ const getAllProfile = async (req, res) => {
 //  based on login users
 const getUserProfile = async (req, res) => {
     const { userid, email } = req.user;
+    
     try {
         const profiles = await profileModel.find({ userId: userid, email });
         res.status(200).json(profiles)
