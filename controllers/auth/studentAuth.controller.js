@@ -59,9 +59,10 @@ const getStudentProfile = async (req, res) => {
 //  get login user information for login persons
 const getLoginAccount = async (req, res) => {
     const { userid, email } = req.user;
-    
+
     try {
-        const allStudent = await authModel.find({ _id: userid, email })
+        const allStudent = await authModel.findOne({ _id: userid, email })
+            .select("-password")
             .populate("profile")
             .populate("results")
             .populate("todos")
@@ -198,32 +199,55 @@ const login = async (req, res) => {
 
 
 const edit = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
     try {
-        const updatedUser = await authModel.findByIdAndUpdate(id,
+     
+        const isUser = await authModel.findById(id);
+
+        if (!isUser) {
+            return res.status(404).json({
+                ok: false,
+                message: "User not found"
+            });
+        }
+
+        const exitsEmail = await authModel.findOne({ email: req.body.email });
+
+        if (exitsEmail && exitsEmail._id.toString() !== id) {
+            return res.status(400).json({
+                ok: false,
+                message: "Email already exists"
+            });
+        }
+
+        const updatedUser = await authModel.findByIdAndUpdate(
+            id,
             { $set: req.body },
-            { new: true });
+            { new: true }
+        );
 
         if (updatedUser) {
-            res.status(200).json({
+            return res.status(200).json({
                 ok: true,
-                message: "Update Successful",
-            })
+                message: "Update successful",
+            });
         } else {
-            res.status(404).json({
+            return res.status(404).json({
                 ok: false,
-                message: "Not Found"
-            })
+                message: "Update failed, user not found"
+            });
         }
 
     } catch (error) {
-        res.status(500).json({
-            message: "Internal Server Error",
+        return res.status(500).json({
+            ok: false,
+            message: "Internal server error",
             error: error.message
-        })
+        });
     }
-}
+};
+
 
 
 const deleteOne = async (req, res) => {
