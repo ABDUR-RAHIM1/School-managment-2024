@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv")
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 const connetcDB = require("./config/database");
 const { port } = require("./secret/secret");
 const authrouter = require("./routes/auth/studentAuth.route");
@@ -29,11 +31,12 @@ const tourRouter = require("./routes/tourSlider/tourSlider.route");
 const heroSliderRouter = require("./routes/sliders/sliders.route");
 const headlineRouter = require("./routes/headline/headline.route");
 const reviewRouter = require("./routes/review/review.route");
- 
+
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
+app.use(cookieParser())
 dotenv.config();
 
 const PORT = port || 9000
@@ -81,7 +84,7 @@ app.use("/api/staffs", staffRouter)
 app.use("/api/comitee", comiteeRouter)
 
 // booklists
-app.use("/api/booklist" , bookListRouter)
+app.use("/api/booklist", bookListRouter)
 
 //  exam routine
 app.use("/api/examroutine", examRoutineRouter)
@@ -105,13 +108,13 @@ app.use("/api/posts", postRouter)
 app.use("/api/tourslider", tourRouter)
 
 //  hero slider
-app.use("/api/slider" , heroSliderRouter)
+app.use("/api/slider", heroSliderRouter)
 
 //  headline for admin
 app.use("/api/headline", headlineRouter)
 
 //  review 
-app.use("/api/review" , reviewRouter)
+app.use("/api/review", reviewRouter)
 
 
 //  test route

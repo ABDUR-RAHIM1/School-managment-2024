@@ -16,15 +16,15 @@ const complainSchema = mongoose.Schema({
     },
     subject: {
         type: String,
-        required: [true, "title is Required"]
+        required: [true, "Title is Required"]
     },
     details: {
         type: String,
-        required: [true, "details is Required"]
+        required: [true, "Details is Required"]
     },
     photo: {
         type: String,
-        default: "https://img.freepik.com/free-photo/clueless-disappointed-angry-male-client-shocked-with-bad-service-spread-hands-sideways-dismay-distressed-arguing-looking-questioned-frustrated-complain-condone-someone_176420-51814.jpg?w=740"
+        default: "",
     },
     isCheck: {
         type: String,

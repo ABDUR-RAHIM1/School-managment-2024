@@ -47,13 +47,14 @@ const addTodo = async (req, res) => {
 
         res.status(201).json({
             message: "Todo add successful",
-            todos
+            ok: true,
         })
 
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
-            error: error.message
+            error: error.message,
+            ok: false,
         })
     }
 }
@@ -67,45 +68,52 @@ const editTodo = async (req, res) => {
 
         if (isUpdate) {
             res.status(200).json({
-                message: "Update successful"
+                message: "Update successful",
+                ok: true, 
             })
+            console.log(isUpdate)
         } else {
             res.status(200).json({
-                message: "Record not found"
+                message: "Record not found",
+                ok: false,
             })
         }
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
-            error: error.message
+            error: error.message,
+            ok: false,
         })
     }
 }
 
 const deleteTodo = async (req, res) => {
     const { id } = req.params;
-    const {userid} = req.params
+    const { userid } = req.params
     try {
         const isDelete = await TodosModel.findByIdAndDelete({ _id: id });
 
         if (isDelete) {
-            await studentsAuth.updateOne({_id:userid}, {
-                $pull : {
-                    todos : isDelete._id
+            await studentsAuth.updateOne({ _id: userid }, {
+                $pull: {
+                    todos: isDelete._id
                 }
             })
             res.status(200).json({
-                message: "Delete successful"
+                message: "Delete successful",
+                ok: true,
             })
         } else {
             res.status(200).json({
-                message: "Record not found"
+                message: "Record not found",
+                ok: false,
             })
         }
     } catch (error) {
         res.status(500).json({
             message: "Internal server Error",
-            error: error.message
+            error: error.message,
+            ok: false,
         })
     }
 };

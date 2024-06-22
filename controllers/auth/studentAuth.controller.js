@@ -1,6 +1,6 @@
 
 const bcrypt = require('bcryptjs');
-const jwtToken = require("../../helpers/jwtToken");
+const jwt = require("../../helpers/jwtToken");
 const { secretKey } = require("../../secret/secret");
 const authModel = require('../../models/auth/studentAuth.model');
 
@@ -57,29 +57,51 @@ const getStudentProfile = async (req, res) => {
 
 
 //  get login user information for login persons
+// const getLoginAccount = async (req, res) => {
+//     const { userid, email } = req.user;
+
+//     try {
+//         const allStudent = await authModel.findOne({ _id: userid, email })
+//             .select("-password")
+//             .populate("profile")
+//             .populate("results")
+//             .populate("todos")
+//             .populate("attendance")
+//             .populate("complains")
+//             .populate("fee")
+//         res.status(200).json(allStudent)
+
+//     } catch (error) {
+//         res.status(500).json({
+//             message: "Internal Server Error 2",
+//             error: error.message
+//         })
+//         console.log(error)
+//     }
+// }
+
 const getLoginAccount = async (req, res) => {
     const { userid, email } = req.user;
 
     try {
-        const allStudent = await authModel.findOne({ _id: userid, email })
+        const loginStudent = await authModel.findOne({ _id: userid, email })
             .select("-password")
-            .populate("profile")
-            .populate("results")
-            .populate("todos")
-            .populate("attendance")
-            .populate("complains")
-            .populate("fee")
-        res.status(200).json(allStudent)
+        // .populate("profile")
+        // .populate("attendance")
+        // .populate("results")
+        // .populate("todos")
+        // .populate("complains")
+        // .populate("fee")
+        res.status(200).json(loginStudent)
 
     } catch (error) {
         res.status(500).json({
-            message: "Internal Server Error 2",
+            message: "Internal Server Error",
             error: error.message
         })
         console.log(error)
     }
 }
-
 
 const register = async (req, res) => {
     const { username, email, password, photo } = req.body
@@ -145,64 +167,78 @@ const controllAccount = async (req, res) => {
 
 //  login 
 const login = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
     try {
-
         const isEmail = await authModel.findOne({ email });
-
-
 
         if (isEmail) {
             if (isEmail.status !== "active") {
-                return res.status(400).json(
-                    {
-                        message: "Your account has not been activated yet. Please contact with admin!",
-                        ok: false
-                    }
-                )
+                return res.status(400).json({
+                    message: "Your account has not been activated yet. Please contact with admin!",
+                    ok: false
+                });
             }
             const isPassword = bcrypt.compareSync(password, isEmail.password);
 
             if (isPassword) {
-                res.status(200).json({
-                    message: "Login Successful",
-                    token: jwtToken({
+                const token = jwt(
+                    {
                         userid: isEmail._id,
                         username: isEmail.username,
                         email: isEmail.email
-                    }, secretKey),
+                    },
+                    secretKey,
+                    { expiresIn: '1h' } // Adding token expiration time
+                );
+
+                // Set token in cookies
+                // await res.cookie('student_auth_token', token, {
+                //     httpOnly: true,
+                //     secure: false, // Set to true if using HTTPS
+                //     sameSite: 'Strict',
+                // });
+
+                const studentInfo = {
+                    username: isEmail.username,
+                    email: isEmail.email,
+                    photo: isEmail.photo || "",
+                    role: isEmail.role
+                }
+                console.log(isEmail.role)
+                res.status(200).json({
+                    message: "Login Successful",
+                    token: token,
+                    info: studentInfo,
                     ok: true
-                })
+                });
             } else {
                 return res.status(404).json({
                     message: "Invalid Credential",
                     ok: false
-                })
+                });
             }
-
         } else {
             return res.status(404).json({
                 message: "Invalid Credential",
                 ok: false,
-            })
+            });
         }
-
-
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message,
             ok: false,
-        })
+        });
     }
-}
+};
+
 
 
 const edit = async (req, res) => {
     const { id } = req.params;
 
     try {
-     
+
         const isUser = await authModel.findById(id);
 
         if (!isUser) {

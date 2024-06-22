@@ -36,7 +36,7 @@ const getUserProfile = async (req, res) => {
     const { userid, email } = req.user;
     
     try {
-        const profiles = await profileModel.find({ userId: userid, email });
+        const profiles = await profileModel.find({ studentId: userid, email }); 
         res.status(200).json(profiles)
     } catch (error) {
         res.status(500).json({
@@ -77,7 +77,7 @@ const createProfile = async (req, res) => {
         if (isProfileExist) {
             return res.status(400).json({
                 message: "you have Create Already a Profile",
-                isProfile: false,
+                ok: false,
             })
         }
         const newProfile = await profileModel({
@@ -121,15 +121,15 @@ const createProfile = async (req, res) => {
 
         res.status(201).json({
             message: "Profile Create Successfull",
-            isProfile: true,
-            profile,
+            ok: true, 
         })
 
 
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error",
-            error: error.message
+            error: error.message,
+            ok:false
         })
     }
 }
